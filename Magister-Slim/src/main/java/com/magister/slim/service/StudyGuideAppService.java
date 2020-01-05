@@ -1,0 +1,200 @@
+package com.magister.slim.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.sound.midi.Soundbank;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.magister.slim.entity.StudyGuide;
+import com.magister.slim.entity.Theme;
+import com.magister.slim.entity.Unit;
+import com.magister.slim.entity.User;
+import com.magister.slim.references.StudyGuideReference;
+import com.magister.slim.references.TeacherReference;
+import com.magister.slim.references.ThemeReference;
+import com.magister.slim.references.UnitReference;
+import com.magister.slim.repository.CourseInterface;
+import com.magister.slim.repository.StudyGuideInterface;
+import com.magister.slim.repository.ThemeInterface;
+import com.magister.slim.repository.UnitInterface;
+
+@Service
+public class StudyGuideAppService {
+
+	@Autowired
+	StudyGuideInterface studyGuideInterface;
+	@Autowired
+	ThemeInterface themeInterface;
+	@Autowired
+	UnitInterface unitInterface;
+	@Autowired
+	CourseInterface courseInterface;
+	@Autowired
+	CourseAppService courseAppService;
+	@Autowired
+	ResourceAppService resourceAppService;
+
+	public StudyGuide getStudyGuideById(String studyGuideid) {
+		if (studyGuideInterface.findById(studyGuideid).isPresent()) {
+			StudyGuide studyGuide = studyGuideInterface.findById(studyGuideid).get();
+			return studyGuide;
+		} else
+			return null;
+	}
+
+	public List<StudyGuide> getStudyGuide(String studyGuideName) {
+		List<StudyGuide> studyGuide = studyGuideInterface.getStudyGuides(studyGuideName);
+		return studyGuide;
+	}
+	
+	public List<StudyGuide> getStudyGuide(User user) {
+		List<StudyGuide> studyGuides = studyGuideInterface.findAll();
+	List<StudyGuide>updatedStudyguides=studyGuides.stream().filter(studyGuide -> studyGuide.getTeacherReference().getTeacherid().equals(user.getUserid())==true && studyGuide.isActive()==true).collect(Collectors.toList());
+		return updatedStudyguides;
+	}
+
+	public String deleteStudyGuide(String studyGuideId) {
+		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
+		studyGuide.setActive(false);
+		studyGuide.setDeleted(true);
+		if(courseAppService.deleteStudyGuideReference(studyGuide))
+		{
+		if(studyGuide.getThemes()!=null) {
+		List<ThemeReference> themeReferences = studyGuide.getThemes().stream().map(themeReference -> {
+			Theme theme=themeInterface.findById(themeReference.getThemeId()).get();
+			theme.setActive(false);
+			theme.getStudyGuideReference().setActive(false);
+			themeInterface.save(theme);
+			themeReference.setActive(false);
+			return themeReference;
+		}).collect(Collectors.toList());
+		studyGuide.setThemes(themeReferences);}
+		if(studyGuide.getUnits()!=null) {
+		List<UnitReference> unitReferences = studyGuide.getUnits().stream().map(unitReference -> {
+			Unit unit=unitInterface.findById(unitReference.getUnitId()).get();
+			unit.setActive(false);
+			unit.getStudyGuideReference().setActive(false);
+			unit.getThemeReference().setActive(false);
+			unitInterface.save(unit);
+			unitReference.setActive(false);
+			return unitReference;
+		}).collect(Collectors.toList());
+		studyGuide.setUnits(unitReferences);}
+		studyGuideInterface.save(studyGuide);
+		return studyGuideId;
+		}
+		else
+			return null;
+		
+	}
+
+	public StudyGuide updateStudyGuide(StudyGuide studyGuide, String studyGuideId) {
+		StudyGuide sg = studyGuideInterface.findById(studyGuideId).get();
+		if (studyGuide.getStudyGuideName() != null) {
+			sg.setStudyGuideName(studyGuide.getStudyGuideName());
+			if (sg.getThemes() != null) {
+				List<ThemeReference> themeReferences = sg.getThemes().stream().map(themeReference -> {
+					Theme theme = themeInterface.findById(themeReference.getThemeId()).get();
+					StudyGuideReference studyGuideReference = theme.getStudyGuideReference();
+					studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
+					theme.setStudyGuideReference(studyGuideReference);
+					System.out.println(theme);
+					themeInterface.save(theme);
+					return themeReference;
+				}).collect(Collectors.toList());
+				sg.setThemes(themeReferences);
+			}
+			if (sg.getUnits() != null) {
+				List<UnitReference> unitReferences = sg.getUnits().stream().map(unitReference -> {
+					Unit unit = unitInterface.findById(unitReference.getUnitId()).get();
+					StudyGuideReference studyGuideReference = unit.getStudyGuideReference();
+					studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
+					unit.setStudyGuideReference(studyGuideReference);
+					System.out.println(unit);
+					unitInterface.save(unit);
+					return unitReference;
+				}).collect(Collectors.toList());
+				sg.setUnits(unitReferences);
+			}
+		}
+		if (studyGuide.getValidOnwards() != null) {
+			sg.setValidOnwards(studyGuide.getValidOnwards());
+		}
+		if (studyGuide.getValidUpto() != null) {
+			sg.setValidUpto(studyGuide.getValidUpto());
+		}
+		studyGuideInterface.save(sg);
+		return sg;
+	}
+
+	public StudyGuide addStudyGuide(StudyGuide studyGuide,User user) {
+		studyGuide.setTeacherReference(teacherDetails(user.getUserid(), user.getUsername()));
+		studyGuideInterface.save(studyGuide);
+		courseAppService.updateStudyguideReferences(studyGuide);
+		return studyGuide;
+	}
+
+	public List<StudyGuideReference> studyGuideDetails(String id, String studyGuideName) {
+		StudyGuideReference studyGuideReference = new StudyGuideReference();
+		List<StudyGuideReference> sR = new ArrayList<StudyGuideReference>();
+		studyGuideReference.setStudyGuideId(id);
+		studyGuideReference.setStudyGuideName(studyGuideName);
+		studyGuideReference.setActive(true);
+		sR.add(studyGuideReference);
+		return sR;
+	}
+//
+//	public CourseReference courseDetails(int id, String courseName) {
+//		CourseReference courseReference = new CourseReference();
+//		courseReference.setCourseId(id);
+//		courseReference.setCourseName(courseName);
+//		courseReference.setActive(true);
+//		return courseReference;
+//	}
+//
+//	public List<StudentReference> studentDetails(int id, String studentName) {
+//		StudentReference student = new StudentReference();
+//		List<StudentReference> studentReference = new ArrayList<StudentReference>();
+//		student.setId(id);
+//		student.setName(studentName);
+//		studentReference.add(student);
+//		return studentReference;
+//	}
+//
+	public TeacherReference teacherDetails(String id, String teacherName) {
+		TeacherReference teacherReference = new TeacherReference();
+		teacherReference.setTeacherid(id);
+		teacherReference.setName(teacherName);
+		teacherReference.setActive(true);
+		return teacherReference;
+	}
+
+	public boolean deleteThemeReference(String themeId, String studyGuideId) {
+		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
+		List<ThemeReference> ThemeReferences = studyGuide.getThemes().stream().map(studyGuideReference -> {
+			if (studyGuideReference.getThemeId().equals(themeId)) {
+				studyGuideReference.setActive(false);
+			}
+			return studyGuideReference;
+		}).collect(Collectors.toList());
+		studyGuide.setThemes(ThemeReferences);
+		studyGuideInterface.save(studyGuide);
+		return true;
+	}
+
+	public boolean deleteUnitReference(String unitId, String studyGuideId) {
+		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
+		List<UnitReference> unitReferences = studyGuide.getUnits().stream().map(unitReference -> {
+			if (unitReference.getUnitId() == unitId) {
+				unitReference.setActive(false);
+			}
+			return unitReference;
+		}).collect(Collectors.toList());
+		studyGuide.setUnits(unitReferences);
+		studyGuideInterface.save(studyGuide);
+		return true;
+	}
+}

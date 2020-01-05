@@ -20,8 +20,7 @@ import com.magister.slim.service.GroupAppService;
 import com.magister.slim.service.OfferingLevelAppService;
 import com.magister.slim.service.UserAppService;
 
-@RestController
-//@RequestMapping("offering/{offeringId}/offering-level/{offeringLevelId}/group")
+
 @RequestMapping("offering/{offeringId}/offering-level/{offeringLevelId}/course/{courseId}/group")
 @CrossOrigin(origins = "http://localhost:4200")
 public class GroupController {
@@ -49,14 +48,7 @@ public class GroupController {
 		else return null;
 	}
 
-//	@RequestMapping(value = "/{groupId}", method = RequestMethod.PUT)
-//	public Group updateGroupDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId")String groupId,@RequestBody Group groupDetails) {
-//		groupDetails.setGroupId(groupId);
-//		groupDetails.setOfferingLevelReference(new OfferingLevelReference());
-//		groupDetails.getOfferingLevelReference().setOfferingLevelId(offeringLevelId);
-//		Group status=groupAppService.updateGroupDetails(offeringId,groupDetails);
-//		return status;
-//	}
+
 	@RequestMapping(value = "/{groupId}", method = RequestMethod.PUT)
 	public Group updateGroupDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId,@PathVariable("groupId")String groupId,@RequestBody Group groupDetails) {
 		groupDetails.setGroupId(groupId);
@@ -64,11 +56,7 @@ public class GroupController {
 		return status;
 	}
 
-//	@RequestMapping(value = "{groupId}", method = RequestMethod.DELETE)
-//	public Group deleteGroupDeatils(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId") String groupId) {
-//		Group status=groupAppService.deleteGroup(offeringId,offeringLevelId,groupId);
-//		return status;
-//	}
+
 
 	@RequestMapping(value = "{groupId}", method = RequestMethod.DELETE)
 	public Group deleteGroupDeatils(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId") String courseId,@PathVariable("groupId") String groupId) {

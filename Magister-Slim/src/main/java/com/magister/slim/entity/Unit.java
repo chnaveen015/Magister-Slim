@@ -16,6 +16,8 @@ public class Unit {
 	@Id
 	private String unitId;
 	private String unitName;
+	private String unitDescription;
+	private String unitGoal;
 	private List<AssignmentReference> assignments;
 	private List<ResourceReference> resources;
 	private ThemeReference themeReference;
@@ -36,6 +38,22 @@ public class Unit {
 
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
+	}
+
+	public String getUnitDescription() {
+		return unitDescription;
+	}
+
+	public void setUnitDescription(String unitDescription) {
+		this.unitDescription = unitDescription;
+	}
+
+	public String getUnitGoal() {
+		return unitGoal;
+	}
+
+	public void setUnitGoal(String unitGoal) {
+		this.unitGoal = unitGoal;
 	}
 
 	public List<AssignmentReference> getAssignments() {
@@ -80,24 +98,28 @@ public class Unit {
 
 	@Override
 	public String toString() {
-		return "Unit [unitId=" + unitId + ", unitName=" + unitName + ", assignments=" + assignments + ", resources="
-				+ resources + ", themeReference=" + themeReference + ", studyGuideReference=" + studyGuideReference
-				+ ", active=" + active + "]";
+		return "Unit [unitId=" + unitId + ", unitName=" + unitName + ", unitDescription=" + unitDescription
+				+ ", unitGoal=" + unitGoal + ", assignments=" + assignments + ", resources=" + resources
+				+ ", themeReference=" + themeReference + ", studyGuideReference=" + studyGuideReference + ", active="
+				+ active + "]";
 	}
 
-	public Unit(String unitId, String unitName, List<AssignmentReference> assignments, List<ResourceReference> resources,
-			ThemeReference themeReference, StudyGuideReference studyGuideReference, boolean active) {
+	public Unit(String unitId, String unitName, String unitDescription, String unitGoal,
+			List<AssignmentReference> assignments, List<ResourceReference> resources, ThemeReference themeReference,
+			StudyGuideReference studyGuideReference, boolean active) {
 		super();
 		this.unitId = unitId;
 		this.unitName = unitName;
+		this.unitDescription = unitDescription;
+		this.unitGoal = unitGoal;
 		this.assignments = assignments;
 		this.resources = resources;
 		this.themeReference = themeReference;
 		this.studyGuideReference = studyGuideReference;
 		this.active = active;
 	}
-	public Unit()
-	{
-		
+
+	public Unit() {
+
 	}
 }

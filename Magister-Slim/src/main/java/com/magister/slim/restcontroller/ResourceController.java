@@ -1,8 +1,10 @@
 package com.magister.slim.restcontroller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,42 +14,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Resource;
+import com.magister.slim.entity.Unit;
 import com.magister.slim.entity.User;
+import com.magister.slim.references.UnitResource;
 import com.magister.slim.service.ResourceAppService;
+import com.magister.slim.service.UserAppService;
 
 @RestController
-@RequestMapping("resource")
+//@RequestMapping("resource")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ResourceController {
 
 	@Autowired
 	ResourceAppService resourceAppService;
 
-	@RequestMapping(method = RequestMethod.POST)
-	public Resource createResource(@RequestBody Resource resource,HttpServletRequest request) {
+	@RequestMapping(value="resource",method = RequestMethod.POST)
+	public Resource createResource(@RequestBody Resource resource,HttpServletRequest request) throws ParseException {
+		resource.setResourceId(UserAppService.generateNumber());
 		resource.setActive(true);
 		User user= (User) request.getServletContext().getAttribute("user");
-		Resource status = resourceAppService.addResource(resource,user);
-		return status;
+		return resourceAppService.addResource(resource,user);
 	}
+	
+	@RequestMapping(value="resource/addToStudyguide",method = RequestMethod.POST)
+	public Resource addStudyGuide(@RequestBody UnitResource unitresource) throws ParseException {
+		System.out.println(unitresource.unit+","+unitresource.resource);
+		System.out.println("Hiii");
+		return resourceAppService.addToUnit(unitresource.unit,unitresource.resource);
+	}
+	
 
-	@RequestMapping(value = "/{resourceId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "resource/{resourceId}", method = RequestMethod.PUT)
 	public Resource updateResourceDetails(@RequestBody Resource resource, @PathVariable("resourceId") String resourceId) {
 		if (resource.getResourceName() != null && resource.getResourceType() != null)
 			resourceAppService.updateResource(resourceId, resource);
 		return resource;
 	}
 
-	@RequestMapping(value = "/{resourceId}", method = RequestMethod.DELETE)
-	public String deleteResourceDetails(@PathVariable("resourceId") String resourceId) {
-		String status = resourceAppService.deleteResource(resourceId);
-		return status;
+	@RequestMapping(value = "resource/{resourceId}", method = RequestMethod.DELETE)
+	public Resource deleteResourceDetails(@PathVariable("resourceId") String resourceId) {
+		return resourceAppService.deleteResource(resourceId);
 	}
 
-	@RequestMapping(value = "/{resourceId}", method = RequestMethod.GET)
+	@RequestMapping(value = "resource/{resourceId}", method = RequestMethod.GET)
 	public Resource getResourceDetail(@PathVariable("resourceId") String resourceId) {
-		Resource resource = resourceAppService.getResource(resourceId);
-		return resource;
+		return resourceAppService.getResource(resourceId);
 	}
 
 //	@RequestMapping(method = RequestMethod.GET)
@@ -56,10 +67,9 @@ public class ResourceController {
 //		return resources;
 //	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "resources",method = RequestMethod.GET)
 	public List<Resource> getResourceDetails(HttpServletRequest request) {
 		User user= (User) request.getServletContext().getAttribute("user");
-		List<Resource> resources = resourceAppService.getResources(user);
-		return resources;
+		return resourceAppService.getResources(user);
 	}
 }

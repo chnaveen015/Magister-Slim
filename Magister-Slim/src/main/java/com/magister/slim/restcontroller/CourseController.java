@@ -21,9 +21,7 @@ import com.magister.slim.service.OfferingLevelAppService;
 import com.magister.slim.service.UserAppService;
 
 @RestController
-//@RequestMapping("offering/{offeringId}/offering-level/{offeringLevelId}/group/{groupId}/course")
 @RequestMapping("offering/{offeringId}/offering-level/{offeringLevelId}/course")
-//@RequestMapping("course")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CourseController {
 
@@ -50,24 +48,14 @@ public class CourseController {
 		return null;
 	}
 
-//	@RequestMapping(value = "/{courseId}", method = RequestMethod.DELETE)
-//	public Course removeCourse(@PathVariable("offeringId")String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId") String groupId,@PathVariable("courseId")String courseId) {
-//		Course status=courseAppService.deleteCourse(groupId,courseId);
-//		return null;
-//	}
+
 	@RequestMapping(value = "/{courseId}", method = RequestMethod.DELETE)
 	public Course removeCourse(@PathVariable("offeringId")String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId) {
 		Course status=courseAppService.deleteCourse(offeringLevelId,courseId);
 		return status;
 	}
 	
-//	@RequestMapping(value = "{courseId}", method = RequestMethod.PUT)
-//	public Course updateCourseDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("groupId")String groupId,@PathVariable("courseId")String courseId,@RequestBody Course course) {
-//		course.setCourseId(courseId);
-//		Course status=courseAppService.updateCourseDetails(groupId,course);
-//		return null;
-//	}
-//	
+
 	@RequestMapping(value = "{courseId}", method = RequestMethod.PUT)
 	public Course updateCourseDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId,@RequestBody Course course) {
 		course.setCourseId(courseId);
@@ -83,12 +71,7 @@ public class CourseController {
 		return coureDetails;
 
 	}
-//	@GetMapping()
-//	public Course getCourseDetailsByName(@PathVariable("offeringId") int offeringId,
-//			@RequestParam("offeringLevelId") int offeringLevelId,@RequestParam("groupId")int groupId,@RequestParam("courseName") String courseName) {
-//		return courseAppService.getCourseByName(groupId,courseName);
-//
-//	}
+
 	@GetMapping()
 	public List<Course> getAllCourses()
 	{

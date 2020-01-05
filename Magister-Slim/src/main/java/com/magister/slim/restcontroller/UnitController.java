@@ -1,9 +1,11 @@
 package com.magister.slim.restcontroller;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +23,11 @@ import com.magister.slim.repository.StudyGuideInterface;
 import com.magister.slim.repository.ThemeInterface;
 import com.magister.slim.repository.UnitInterface;
 import com.magister.slim.service.UnitAppService;
+import com.magister.slim.service.UserAppService;
 
 @RestController
-@RequestMapping("studyGuide/{studyGuideId}/theme/{themeId}/unit")
-//@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("studyGuide/{studyGuideId}/theme/{themeId}")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UnitController {
 
 	@Autowired
@@ -41,44 +44,43 @@ public class UnitController {
 	Theme theme = new Theme();
 	ThemeReference themeReference = new ThemeReference();
 
-	@RequestMapping(value = "", method = RequestMethod.POST)
+	@RequestMapping(value = "/unit", method = RequestMethod.POST)
 	public Unit createUnit(@RequestBody Unit unit, @PathVariable("studyGuideId") String studyGuideId,
-			@PathVariable("themeId") String themeId) {
-		if (studyGuideInterface.findById(studyGuideId).isPresent()&&themeInterface.findById(themeId).isPresent()) {
-		studyGuide = studyGuideInterface.findById(studyGuideId).get();
-		studyGuideReference.setStudyGuideId(studyGuide.getStudyGuideId());
-		studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
-		studyGuideReference.setActive(studyGuide.isActive());
-		theme = themeInterface.findById(themeId).get();
-		themeReference.setThemeId(theme.getThemeId());
-		themeReference.setThemeName(theme.getThemeName());
-		themeReference.setActive(theme.isActive());
-		unit.setStudyGuideReference(studyGuideReference);
-		unit.setThemeReference(themeReference);
-		unit.setActive(true);
-		Unit status = unitAppService.addUnit(unit);
-		System.out.println(status);
-		return status;}
-		else
+			@PathVariable("themeId") String themeId) throws ParseException {
+		unit.setUnitId(UserAppService.generateNumber());
+		if (studyGuideInterface.findById(studyGuideId).isPresent() && themeInterface.findById(themeId).isPresent()) {
+			studyGuide = studyGuideInterface.findById(studyGuideId).get();
+			studyGuideReference.setStudyGuideId(studyGuide.getStudyGuideId());
+			studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
+			studyGuideReference.setActive(studyGuide.isActive());
+			theme = themeInterface.findById(themeId).get();
+			themeReference.setThemeId(theme.getThemeId());
+			themeReference.setThemeName(theme.getThemeName());
+			themeReference.setActive(theme.isActive());
+			unit.setStudyGuideReference(studyGuideReference);
+			unit.setThemeReference(themeReference);
+			unit.setActive(true);
+			Unit status = unitAppService.addUnit(unit);
+			System.out.println(status);
+			return status;
+		} else
 			return null;
 	}
 
-	@RequestMapping(value = "/{unitId}", method = RequestMethod.DELETE)
-	public String deleteUnitDetails(@PathVariable("unitId") String unitId, @PathVariable("studyGuideId") String studyGuideId,
-			@PathVariable("themeId") String themeId) {
-//		studyGuideReference.setStudyGuideId(studyGuideId);
-//		themeReference.setThemeId(themeId);
-		String status = unitAppService.deleteUnit(unitId,themeId,studyGuideId);
-		return status;
+	@RequestMapping(value = "/unit/{unitId}", method = RequestMethod.DELETE)
+	public String deleteUnitDetails(@PathVariable("unitId") String unitId,
+			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId) {
+		return unitAppService.deleteUnit(unitId, themeId, studyGuideId);
 	}
 
-	@RequestMapping(value = "/{unitId}", method = RequestMethod.PUT)
-	public Unit updateUnitDetails(@PathVariable("unitId") String unitId, @PathVariable("studyGuideId") String studyGuideId,
-			@PathVariable("themeId") String themeId, @RequestBody Unit unit) {
+	@RequestMapping(value = "/unit/{unitId}", method = RequestMethod.PUT)
+	public Unit updateUnitDetails(@PathVariable("unitId") String unitId,
+			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId,
+			@RequestBody Unit unit) {
 		studyGuideReference.setStudyGuideId(studyGuideId);
 		themeReference.setThemeId(themeId);
 		String unitName = unit.getUnitName();
-		StudyGuide studyGuide=studyGuideInterface.findById(studyGuideReference.getStudyGuideId()).get();
+		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideReference.getStudyGuideId()).get();
 		Theme theme = themeInterface.findById(themeReference.getThemeId()).get();
 		if (unit.getUnitName() != null) {
 			List<UnitReference> unitReferences = theme.getUnits().stream().map(unitReference -> {
@@ -98,22 +100,18 @@ public class UnitController {
 		}
 		unit = unitInterface.findById(unitId).get();
 		unit.setUnitName(unitName);
-		Unit status = unitAppService.updateUnit(unit, theme, studyGuide);
-		return status;
+		return unitAppService.updateUnit(unit, theme, studyGuide);
 	}
 
-	@RequestMapping(value = "/{unitId}", method = RequestMethod.GET)
-	public Unit getUnitDetail(@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId,
-			@PathVariable("unitId") String unitId) {
-		Unit unit = unitAppService.getUnit(unitId, themeId, studyGuideId);
-		return unit;
+	@RequestMapping(value = "/unit/{unitId}", method = RequestMethod.GET)
+	public Unit getUnitDetail(@PathVariable("studyGuideId") String studyGuideId,
+			@PathVariable("themeId") String themeId, @PathVariable("unitId") String unitId) {
+		return unitAppService.getUnit(unitId, themeId, studyGuideId);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/units", method = RequestMethod.GET)
 	public List<Unit> getUnitDetails(@PathVariable("studyGuideId") String studyGuideId,
 			@PathVariable("themeId") String themeId, @RequestParam String unitName) {
-		List<Unit> units = unitAppService.getUnits(unitName, themeId, studyGuideId);
-		return units;
+		return unitAppService.getUnits(unitName, themeId, studyGuideId);
 	}
-
 }

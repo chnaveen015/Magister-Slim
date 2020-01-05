@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Theme;
 import com.magister.slim.entity.Unit;
@@ -25,15 +26,16 @@ public class UnitAppService {
 	StudyGuideInterface studyGuideInterface;
 	@Autowired
 	UnitAppService unitAppService;
-
+	@Autowired
 	ThemeAppService themeAppService;
+	@Autowired
 	StudyGuideAppService studyGuideAppService;
 
 	public Unit getUnit(String unitid, String themeId, String studyGuideId) {
 		if (unitInterface.findById(unitid).isPresent()) {
 			Unit unit = unitInterface.findById(unitid).get();
 			if (unit.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)
-					&& unit.getThemeReference().getThemeId().equals(themeId)) {
+					&& unit.getThemeReference().getThemeId().equals(themeId) && unit.isActive() == true) {
 				return unit;
 			} else
 				return null;
@@ -45,7 +47,8 @@ public class UnitAppService {
 		List<Unit> units = unitInterface.getUnits(unitName);
 		List<Unit> unitReferences = units.stream().map(unitReference -> {
 			if (unitReference.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)
-					&& unitReference.getThemeReference().getThemeId().equals( themeId)) {
+					&& unitReference.getThemeReference().getThemeId().equals(themeId)
+					&& unitReference.isActive() == true) {
 				return unitReference;
 			} else
 				return null;
@@ -105,6 +108,7 @@ public class UnitAppService {
 		units.add(unitReference);
 		return units;
 	}
+
 	public boolean deleteAssignmentReference(String unitId, String assignmentId) {
 		Unit unit = unitInterface.findById(unitId).get();
 		List<AssignmentReference> assignmentReferences = unit.getAssignments().stream().map(assignmentReference -> {
@@ -113,7 +117,8 @@ public class UnitAppService {
 			}
 			return assignmentReference;
 		}).collect(Collectors.toList());
-		unit.setAssignments(assignmentReferences);;
+		unit.setAssignments(assignmentReferences);
+		;
 		unitInterface.save(unit);
 		return true;
 	}

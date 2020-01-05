@@ -14,6 +14,8 @@ public class Theme {
 	@Id
 	private String themeId;
 	private String themeName;
+	private String themeDescription;
+	private String themeGoal;
 	private StudyGuideReference studyGuideReference;
 	private List<UnitReference> units;
 	private boolean isActive;
@@ -32,6 +34,22 @@ public class Theme {
 
 	public void setThemeName(String themeName) {
 		this.themeName = themeName;
+	}
+	
+	public String getThemeDescription() {
+		return themeDescription;
+	}
+
+	public void setThemeDescription(String themeDescription) {
+		this.themeDescription = themeDescription;
+	}
+
+	public String getThemeGoal() {
+		return themeGoal;
+	}
+
+	public void setThemeGoal(String themeGoal) {
+		this.themeGoal = themeGoal;
 	}
 
 	public StudyGuideReference getStudyGuideReference() {
@@ -60,19 +78,23 @@ public class Theme {
 
 	@Override
 	public String toString() {
-		return "Theme [themeId=" + themeId + ", themeName=" + themeName + ", studyGuideReference=" + studyGuideReference
-				+ ", units=" + units + ", isActive=" + isActive + "]";
+		return "Theme [themeId=" + themeId + ", themeName=" + themeName + ", themeDescription=" + themeDescription
+				+ ", themeGoal=" + themeGoal + ", studyGuideReference=" + studyGuideReference + ", units=" + units
+				+ ", isActive=" + isActive + "]";
 	}
 
-	public Theme(String themeId, String themeName, StudyGuideReference studyGuideReference, List<UnitReference> units,
-			boolean isActive) {
+	public Theme(String themeId, String themeName, String themeDescription, String themeGoal,
+			StudyGuideReference studyGuideReference, List<UnitReference> units, boolean isActive) {
 		super();
 		this.themeId = themeId;
 		this.themeName = themeName;
+		this.themeDescription = themeDescription;
+		this.themeGoal = themeGoal;
 		this.studyGuideReference = studyGuideReference;
 		this.units = units;
 		this.isActive = isActive;
 	}
+
 	public Theme()
 	{
 		

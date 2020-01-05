@@ -1,5 +1,6 @@
 package com.magister.slim.restcontroller;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,10 @@ import com.magister.slim.repository.StudyGuideInterface;
 import com.magister.slim.repository.ThemeInterface;
 import com.magister.slim.repository.UnitInterface;
 import com.magister.slim.service.ThemeAppService;
+import com.magister.slim.service.UserAppService;
 
 @RestController
-@RequestMapping("studyGuide/{studyGuideId}/theme")
+@RequestMapping("studyGuide/{studyGuideId}")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ThemeController {
 
@@ -37,25 +39,24 @@ public class ThemeController {
 	StudyGuideReference studyGuideReference = new StudyGuideReference();
 	StudyGuide studyGuide = new StudyGuide();
 
-	@RequestMapping(method = RequestMethod.POST)
-	public Theme createTheme(@RequestBody Theme theme, @PathVariable("studyGuideId") String studyGuideId) {
+	@RequestMapping(value = "/theme",method = RequestMethod.POST)
+	public Theme createTheme(@RequestBody Theme theme, @PathVariable("studyGuideId") String studyGuideId) throws ParseException {
 		studyGuideReference.setStudyGuideId(studyGuideId);
-		System.out.println(studyGuideInterface.findAll());
 		List<StudyGuide> studyGuideList=studyGuideInterface.findAll();
 		StudyGuide studyGuide=studyGuideList.stream().filter(oneTheme-> oneTheme.getStudyGuideId().equals(studyGuideId)).findFirst().get();
 		if (studyGuide.isActive()) {
 			studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
 			studyGuideReference.setActive(studyGuide.isActive());
+			theme.setThemeId(UserAppService.generateNumber());
 			theme.setStudyGuideReference(studyGuideReference);
 			theme.setActive(true);
 			Theme status = themeAppService.addTheme(theme, studyGuide);
-			System.out.println(status);
 			return status;
 		} else
 			return null;
 	}
 
-	@RequestMapping(value = "/{themeId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/theme/{themeId}", method = RequestMethod.PUT)
 	public Theme updateThemeDetails(@PathVariable("themeId") String themeId, @RequestBody Theme theme,
 			@PathVariable("studyGuideId") String studyGuideId) {
 		String themeName = theme.getThemeName();
@@ -76,26 +77,21 @@ public class ThemeController {
 		return themeAppService.updateTheme(theme, studyGuide);
 	}
 
-	@RequestMapping(value = "/{themeId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/theme/{themeId}", method = RequestMethod.DELETE)
 	public String deleteThemeDetails(@PathVariable("themeId") String themeId,
 			@PathVariable("studyGuideId") String studyGuideId) {
-		System.out.println("Hii");
-		String status = themeAppService.deleteTheme(themeId, studyGuideId);
-		return status;
+		return themeAppService.deleteTheme(themeId, studyGuideId);
 	}
 
-	@RequestMapping(value = "/{themeId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/theme/{themeId}", method = RequestMethod.GET)
 	public Theme getThemeDetail(@PathVariable("themeId") String themeId, @PathVariable("studyGuideId") String studyGuideId) {
-		System.out.println(themeId);
-		Theme theme = themeAppService.getTheme(themeId, studyGuideId);
-		return theme;
+		return themeAppService.getTheme(themeId, studyGuideId);
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/themes",method = RequestMethod.GET)
 	public List<Theme> getThemeDetails(@RequestParam String themeName, @PathVariable("studyGuideId") String studyGuideId) {
-		List<Theme> themes = themeAppService.getThemes(themeName, studyGuideId);
-		return themes;
+		return themeAppService.getThemes(themeName, studyGuideId);
 	}
 
 }

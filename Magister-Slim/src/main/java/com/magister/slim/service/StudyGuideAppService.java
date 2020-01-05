@@ -3,9 +3,6 @@ package com.magister.slim.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.sound.midi.Soundbank;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magister.slim.entity.StudyGuide;
@@ -39,56 +36,50 @@ public class StudyGuideAppService {
 
 	public StudyGuide getStudyGuideById(String studyGuideid) {
 		if (studyGuideInterface.findById(studyGuideid).isPresent()) {
-			StudyGuide studyGuide = studyGuideInterface.findById(studyGuideid).get();
-			return studyGuide;
+			return studyGuideInterface.findById(studyGuideid).get();
 		} else
 			return null;
 	}
 
 	public List<StudyGuide> getStudyGuide(String studyGuideName) {
-		List<StudyGuide> studyGuide = studyGuideInterface.getStudyGuides(studyGuideName);
-		return studyGuide;
+		return studyGuideInterface.getStudyGuides(studyGuideName);
 	}
-	
+
 	public List<StudyGuide> getStudyGuide(User user) {
 		List<StudyGuide> studyGuides = studyGuideInterface.findAll();
-	List<StudyGuide>updatedStudyguides=studyGuides.stream().filter(studyGuide -> studyGuide.getTeacherReference().getTeacherid().equals(user.getUserid())==true && studyGuide.isActive()==true).collect(Collectors.toList());
+		List<StudyGuide>updatedStudyguides=studyGuides.stream().filter(studyGuide -> studyGuide.getTeacherReference().getTeacherid().equals(user.getUserid())==true && studyGuide.isActive()==true).collect(Collectors.toList());
 		return updatedStudyguides;
-	}
+		}
 
 	public String deleteStudyGuide(String studyGuideId) {
 		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
 		studyGuide.setActive(false);
 		studyGuide.setDeleted(true);
-		if(courseAppService.deleteStudyGuideReference(studyGuide))
-		{
-		if(studyGuide.getThemes()!=null) {
-		List<ThemeReference> themeReferences = studyGuide.getThemes().stream().map(themeReference -> {
-			Theme theme=themeInterface.findById(themeReference.getThemeId()).get();
-			theme.setActive(false);
-			theme.getStudyGuideReference().setActive(false);
-			themeInterface.save(theme);
-			themeReference.setActive(false);
-			return themeReference;
-		}).collect(Collectors.toList());
-		studyGuide.setThemes(themeReferences);}
-		if(studyGuide.getUnits()!=null) {
-		List<UnitReference> unitReferences = studyGuide.getUnits().stream().map(unitReference -> {
-			Unit unit=unitInterface.findById(unitReference.getUnitId()).get();
-			unit.setActive(false);
-			unit.getStudyGuideReference().setActive(false);
-			unit.getThemeReference().setActive(false);
-			unitInterface.save(unit);
-			unitReference.setActive(false);
-			return unitReference;
-		}).collect(Collectors.toList());
-		studyGuide.setUnits(unitReferences);}
+		if (studyGuide.getThemes() != null) {
+			List<ThemeReference> themeReferences = studyGuide.getThemes().stream().map(themeReference -> {
+				Theme theme = themeInterface.findById(themeReference.getThemeId()).get();
+				theme.setActive(false);
+				theme.getStudyGuideReference().setActive(false);
+				themeInterface.save(theme);
+				themeReference.setActive(false);
+				return themeReference;
+			}).collect(Collectors.toList());
+			studyGuide.setThemes(themeReferences);
+		}
+		if (studyGuide.getUnits() != null) {
+			List<UnitReference> unitReferences = studyGuide.getUnits().stream().map(unitReference -> {
+				Unit unit = unitInterface.findById(unitReference.getUnitId()).get();
+				unit.setActive(false);
+				unit.getStudyGuideReference().setActive(false);
+				unit.getThemeReference().setActive(false);
+				unitInterface.save(unit);
+				unitReference.setActive(false);
+				return unitReference;
+			}).collect(Collectors.toList());
+			studyGuide.setUnits(unitReferences);
+		}
 		studyGuideInterface.save(studyGuide);
 		return studyGuideId;
-		}
-		else
-			return null;
-		
 	}
 
 	public StudyGuide updateStudyGuide(StudyGuide studyGuide, String studyGuideId) {
@@ -130,10 +121,10 @@ public class StudyGuideAppService {
 		return sg;
 	}
 
-	public StudyGuide addStudyGuide(StudyGuide studyGuide,User user) {
+	public StudyGuide addStudyGuide(StudyGuide studyGuide, User user) {
 		studyGuide.setTeacherReference(teacherDetails(user.getUserid(), user.getUsername()));
-		studyGuideInterface.save(studyGuide);
 		courseAppService.updateStudyguideReferences(studyGuide);
+		studyGuideInterface.save(studyGuide);
 		return studyGuide;
 	}
 
@@ -164,6 +155,7 @@ public class StudyGuideAppService {
 //		return studentReference;
 //	}
 //
+
 	public TeacherReference teacherDetails(String id, String teacherName) {
 		TeacherReference teacherReference = new TeacherReference();
 		teacherReference.setTeacherid(id);
@@ -187,11 +179,11 @@ public class StudyGuideAppService {
 
 	public boolean deleteUnitReference(String unitId, String studyGuideId) {
 		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
-		List<UnitReference> unitReferences = studyGuide.getUnits().stream().map(unitReference -> {
-			if (unitReference.getUnitId() == unitId) {
-				unitReference.setActive(false);
+		List<UnitReference> unitReferences = studyGuide.getUnits().stream().map(studyGuideReference -> {
+			if (studyGuideReference.getUnitId().equals(unitId)) {
+				studyGuideReference.setActive(false);
 			}
-			return unitReference;
+			return studyGuideReference;
 		}).collect(Collectors.toList());
 		studyGuide.setUnits(unitReferences);
 		studyGuideInterface.save(studyGuide);

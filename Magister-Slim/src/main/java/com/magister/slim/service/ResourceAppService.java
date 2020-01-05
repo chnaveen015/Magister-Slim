@@ -1,14 +1,20 @@
 package com.magister.slim.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.magister.slim.entity.Offering;
 import com.magister.slim.entity.Resource;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Unit;
 import com.magister.slim.entity.User;
+import com.magister.slim.references.OfferingLevelReference;
 import com.magister.slim.references.ResourceReference;
+import com.magister.slim.references.StudyGuideReference;
 import com.magister.slim.references.TeacherReference;
 import com.magister.slim.references.UnitReference;
 import com.magister.slim.repository.ResourceInterface;
@@ -23,7 +29,7 @@ public class ResourceAppService {
 	@Autowired
 	StudyGuideInterface studyGuideInterface;
 	@Autowired
-	UnitInterface unitInerface;
+	UnitInterface unitInterface;
 
 	public List<Resource> getResources(String resourceName) {
 		if (resourceInterface.getResources(resourceName).isEmpty())
@@ -41,25 +47,42 @@ public class ResourceAppService {
 			List<Resource> resources = resourceInterface.findAll();
 			for(int i=0;i<resources.size();i++)
 			{
-				if(user.getUserid().equals(resources.get(i).getCreatedBy().getTeacherid())) {}
+				if(user.getUserid().equals(resources.get(i).getCreatedBy().getTeacherid())&&resources.get(i).isActive()==true) {}
 				else
 					resources.remove(i);
 			}
 			return resources;
 		}
 	}
+	
+	
+	public Resource addToUnit(Unit unit1,Resource resource){
+		Unit unit=unitInterface.findById(unit1.getUnitId()).get();
+		resource.setStudyGuideReference(new StudyGuideReference(unit.getStudyGuideReference().getStudyGuideId()
+				,unit.getStudyGuideReference().getStudyGuideName(),unit.getStudyGuideReference().isActive()));
+		resourceInterface.save(resource);
+		List<ResourceReference> resources = new ArrayList<ResourceReference>();
+		if(unit!=null)
+		{
+		resources = unit.getResources();
+		if (resources == null)
+			resources = new ArrayList<ResourceReference>();
+		resources.add(new ResourceReference(resource.getResourceId(),resource.getResourceType(),resource.getResourceName()));
+		unit.setResources(resources);
+		unitInterface.save(unit);
+		}
+		return resource;
+	}
 
-	public String deleteResource(String resourceId) {
-		String status = null;
+	public Resource deleteResource(String resourceId) {
 		Resource resource = resourceInterface.findById(resourceId).get();
 		if (resource.getStudyGuideReference() != null) {
-			status = "You can't delete the resource as it is under StudyGuide Reference.You need to first delete in StudyGuide";
+			return null;
 		} else {
 			resource.setActive(false);
 			resourceInterface.save(resource);
-			status = "Successfully deleted";
+			return resource;
 		}
-		return status;
 	}
 
 	public Resource addResource(Resource resource,User user) {
@@ -100,7 +123,7 @@ public class ResourceAppService {
 		{
 			StudyGuide studyGuide=studyGuideInterface.findById(resource.getStudyGuideReference().getStudyGuideId()).get();
 			List<UnitReference> unitReferences1 = studyGuide.getUnits().stream().map(unitReference -> {
-				Unit unit=unitInerface.findById(unitReference.getUnitId()).get();
+				Unit unit=unitInterface.findById(unitReference.getUnitId()).get();
 				List<ResourceReference> resourceReferencce =(List<ResourceReference>) unit.getResources().stream().map(resourceReference->{
 					if(resourceReference.getResourceId().equals(resourceId)) {
 					resourceReference.setResourceName(resource.getResourceName());
@@ -109,7 +132,7 @@ public class ResourceAppService {
 					return resourceReference;
 				}).collect(Collectors.toList());
 				unit.setResources(resourceReferencce);
-				unitInerface.save(unit);
+				unitInterface.save(unit);
 				return unitReference;
 			}).collect(Collectors.toList());
 			studyGuide.setUnits(unitReferences1);

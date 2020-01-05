@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Theme;
+import com.magister.slim.entity.Unit;
 import com.magister.slim.references.ThemeReference;
 import com.magister.slim.references.UnitReference;
 import com.magister.slim.repository.StudyGuideInterface;
 import com.magister.slim.repository.ThemeInterface;
+import com.magister.slim.repository.UnitInterface;
 
 @Service
 public class ThemeAppService {
@@ -19,6 +21,8 @@ public class ThemeAppService {
 	StudyGuideInterface studyGuideInterface;
 	@Autowired
 	ThemeInterface themeInterface;
+	@Autowired
+	UnitInterface unitInterface;
 	@Autowired
 	StudyGuideAppService studyGuideAppService;
 
@@ -34,16 +38,27 @@ public class ThemeAppService {
 	}
 
 	public String deleteTheme(String themeId, String studyGuideId) {
-		System.out.println(themeInterface.findAll());
 		List<Theme> theme = themeInterface.findAll();
-		for(int i=0;i<theme.size();i++)
+		int size=theme.size();
+		for(int i=0;i<size;i++)
 		{
 			if(themeId.equals(theme.get(i).getThemeId()))
 			{
 				theme.get(i).setActive(false);
+				if(theme.get(i).getUnits()!=null) {
+					List<UnitReference> unitReferences = theme.get(i).getUnits().stream().map(unitReference -> {
+						Unit unit = unitInterface.findById(unitReference.getUnitId()).get();
+						unit.setActive(false);
+						unit.getThemeReference().setActive(false);
+						studyGuideAppService.deleteUnitReference(unit.getUnitId(), studyGuideId);
+						unitInterface.save(unit);
+						unitReference.setActive(false);
+						return unitReference;
+					}).collect(Collectors.toList());
+					theme.get(i).setUnits(unitReferences);
+				}
+				themeInterface.save(theme.get(i));
 			}
-			else
-				theme.remove(i);
 		}
 		studyGuideAppService.deleteThemeReference(themeId, studyGuideId);
 		return themeId;
@@ -81,7 +96,7 @@ public class ThemeAppService {
 		System.out.println(theme);
 		if (theme!=null) {
 		//	Theme theme = themeInterface.findById(themeid).get();
-			if (theme.getStudyGuideReference().getStudyGuideId().equals( studyGuideId))
+			if (theme.getStudyGuideReference().getStudyGuideId().equals( studyGuideId)&&theme.isActive()==true)
 				return theme;
 			else
 				return theme;

@@ -1,3 +1,4 @@
+
 package com.magister.slim.restcontroller;
 
 import java.text.ParseException;
@@ -68,3 +69,4 @@ public class ResourceController {
 		return resourceAppService.getResources(user);
 	}
 }
+

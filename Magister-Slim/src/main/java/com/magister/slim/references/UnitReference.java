@@ -1,3 +1,4 @@
+
 package com.magister.slim.references;
 
 public class UnitReference {
@@ -28,5 +29,6 @@ public class UnitReference {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
+	
 }
+

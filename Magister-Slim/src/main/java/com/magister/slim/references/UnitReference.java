@@ -28,5 +28,5 @@ public class UnitReference {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-
+	
 }

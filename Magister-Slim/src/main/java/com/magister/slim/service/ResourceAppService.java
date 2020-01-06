@@ -56,8 +56,8 @@ public class ResourceAppService {
 	}
 	
 	
-	public Resource addToUnit(Unit unit1,Resource resource){
-		Unit unit=unitInterface.findById(unit1.getUnitId()).get();
+	public Resource addToUnit(String unitId,Resource resource){
+		Unit unit=unitInterface.findById(unitId).get();
 		resource.setStudyGuideReference(new StudyGuideReference(unit.getStudyGuideReference().getStudyGuideId()
 				,unit.getStudyGuideReference().getStudyGuideName(),unit.getStudyGuideReference().isActive()));
 		resourceInterface.save(resource);

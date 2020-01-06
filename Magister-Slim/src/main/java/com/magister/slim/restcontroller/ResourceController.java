@@ -2,10 +2,7 @@ package com.magister.slim.restcontroller;
 
 import java.text.ParseException;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Resource;
-import com.magister.slim.entity.Unit;
 import com.magister.slim.entity.User;
-import com.magister.slim.references.UnitResource;
 import com.magister.slim.service.ResourceAppService;
 import com.magister.slim.service.UserAppService;
 
@@ -36,11 +31,11 @@ public class ResourceController {
 		return resourceAppService.addResource(resource,user);
 	}
 	
-	@RequestMapping(value="resource/addToStudyguide",method = RequestMethod.POST)
-	public Resource addStudyGuide(@RequestBody UnitResource unitresource) throws ParseException {
-		System.out.println(unitresource.unit+","+unitresource.resource);
+	@RequestMapping(value="resource/addToUnit/{unitId}",method = RequestMethod.POST)
+	public Resource addStudyGuide(@RequestBody Resource resource, @PathVariable("unitId") String unitId) throws ParseException {
+		System.out.println(unitId+","+resource);
 		System.out.println("Hiii");
-		return resourceAppService.addToUnit(unitresource.unit,unitresource.resource);
+		return resourceAppService.addToUnit(unitId,resource);
 	}
 	
 

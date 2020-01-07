@@ -1,11 +1,7 @@
 package com.magister.slim.restcontroller;
 
 import java.text.ParseException;
-import java.util.List; 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.magister.slim.entity.Group;
 import com.magister.slim.entity.Teacher;
 import com.magister.slim.service.TeacherAppService;
 import com.magister.slim.service.UserAppService;
 
 @RestController
 @RequestMapping("teacher")
-//@CrossOrigin(origins = "http://localhost:4200")
 public class TeacherController {
 	@Autowired
 	TeacherAppService teacherAppService;
@@ -32,7 +26,7 @@ public class TeacherController {
 
 	@PostMapping()
 	public Teacher addTeacherDetails(@RequestBody Teacher teacherDetails) throws ParseException {
-		teacherDetails.setTeacherId(userAppService.generateNumber());
+		teacherDetails.setTeacherId(UserAppService.generateNumber());
 		teacherDetails.setActive(true);
 		Teacher status = teacherAppService.addTeacher(teacherDetails);
 		return status;
@@ -48,7 +42,7 @@ public class TeacherController {
 	public Teacher updateTeacherDetails(@PathVariable("teacherId") String teacherId,@RequestBody Teacher teacher) {
 		teacher.setTeacherId(teacherId);
 		Teacher status = teacherAppService.updateTeacher(teacher);
-		return null;
+		return status;
 	}
 
 	@RequestMapping(value = "{teacherId}", method = RequestMethod.GET)

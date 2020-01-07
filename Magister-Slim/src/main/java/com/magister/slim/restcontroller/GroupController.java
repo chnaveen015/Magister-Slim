@@ -3,7 +3,6 @@ package com.magister.slim.restcontroller;
 import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Group;
 import com.magister.slim.references.CourseReference;
-import com.magister.slim.references.OfferingLevelReference;
 import com.magister.slim.service.CourseAppService;
 import com.magister.slim.service.GroupAppService;
 import com.magister.slim.service.OfferingLevelAppService;
@@ -22,7 +19,6 @@ import com.magister.slim.service.UserAppService;
 
 
 @RequestMapping("offering/{offeringId}/offering-level/{offeringLevelId}/course/{courseId}/group")
-@CrossOrigin(origins = "http://localhost:4200")
 public class GroupController {
 
 	@Autowired
@@ -37,7 +33,7 @@ public class GroupController {
 	@PostMapping()
 	public Group createGroup(@PathVariable("offeringId")String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId,@RequestBody Group groupDetails) throws ParseException {
 		groupDetails.setActive(true);
-		groupDetails.setGroupId(userAppService.generateNumber());
+		groupDetails.setGroupId(UserAppService.generateNumber());
 		CourseReference courseReference=courseAppService.getCourseReference(courseId, offeringLevelId);
 		if(courseReference!=null)
 		{

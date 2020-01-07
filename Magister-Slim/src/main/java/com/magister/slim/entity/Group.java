@@ -6,9 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.magister.slim.references.CourseReference;
-import com.magister.slim.references.OfferingLevelReference;
 import com.magister.slim.references.StudentReference;
-import com.magister.slim.references.StudyGuideReference;
 import com.magister.slim.references.TeacherReference;
 
 @Document

@@ -9,24 +9,28 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.magister.slim.util.JWTUtil;
 
+import io.swagger.models.HttpMethod;
+
 @Component
 public class MagisterInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
- //return isUserLogged(request) && JWTUtil.verifyToken(request.getHeader("Authorization").substring(7));
-		if (isUserLogged(request) && JWTUtil.verifyToken(request.getHeader("Authorization").substring(7))) {
-			return true;
-		} else {
+		if (request.getRequestURI().equals("/login") || request.getMethod().equalsIgnoreCase(HttpMethod.OPTIONS.toString())) {
 			return true;
 		}
-
+		else if (isUserLogged(request) && JWTUtil.verifyToken(request.getHeader("Authorization").substring(7)) ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+
 	}
 
 	@Override
@@ -37,9 +41,7 @@ public class MagisterInterceptor implements HandlerInterceptor {
 	public static boolean isUserLogged(HttpServletRequest request) {
 
 		return request.getHeader("Authorization") != null;
-// } catch (Exception e) {
-// return request.getHeader("Authorization") == null;
-// }
+
 	}
 
 }

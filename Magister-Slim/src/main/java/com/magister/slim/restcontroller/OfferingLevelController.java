@@ -1,13 +1,9 @@
 package com.magister.slim.restcontroller;
 
 import java.text.ParseException;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.Soundbank;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +23,6 @@ import com.magister.slim.service.UserAppService;
 
 @RestController
 @RequestMapping("offering/{offeringId}/offering-level")
-@CrossOrigin(origins = "http://localhost:4200")
 public class OfferingLevelController {
 
 	@Autowired
@@ -40,7 +35,7 @@ public class OfferingLevelController {
 	@PostMapping(value = "")
 	public OfferingLevel createOfferingLevel(@PathVariable("offeringId") String offeringId,
 			@RequestBody OfferingLevel offeringLevel) throws ParseException {
-		offeringLevel.setOfferingLevelId(userAppService.generateNumber());
+		offeringLevel.setOfferingLevelId(UserAppService.generateNumber());
 		offeringLevel.setActive(true);
 		Offering offering = offeringAppService.getOfferingById(offeringId);
 		if (offering != null) {
@@ -55,7 +50,6 @@ public class OfferingLevelController {
 	@DeleteMapping(value = "{offeringLevelId}")
 	public OfferingLevel deleteOfferingLevel(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId) {
-		System.out.println(offeringId+":"+offeringLevelId);
 		OfferingLevel status = offeringLevelAppService.deleteOfferingLevel(offeringId, offeringLevelId);
 		return status;
 	}
@@ -73,7 +67,6 @@ public class OfferingLevelController {
 	@GetMapping(value = "{offeringLevelId}")
 	public OfferingLevel getOfferingLevelDetails(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId) {
-		System.out.println(offeringLevelId);
 		OfferingLevel offeringLevel = offeringLevelAppService.getOfferingLevelById(offeringId, offeringLevelId);
 		return offeringLevel;
 	}

@@ -20,24 +20,23 @@ import com.magister.slim.service.UserAppService;
 public class UserController {
 	@Autowired
 	UserAppService userAppService;
+
 	@GetMapping()
-	public List<User> getUserDetails()
-	{
+	public List<User> getUserDetails() {
 		return null;
 	}
+
 	@PostMapping("")
-	public void createUser(@RequestBody() User user)
-	{
-		User status=userAppService.addUserDetails(user);
-	}
-	@DeleteMapping("{userId}")
-	public void DeleteUserDetails(@RequestParam("userId") String userId)
-	{
-		
-	}
-	@PutMapping("{userId}")
-	public void updateCourseDetails(@RequestParam("userId") String userId,@RequestBody() User user)
-	{
-	}
+	public void createUser(@RequestBody() User user) {
+		 userAppService.addUserDetails(user);
 	}
 
+	@DeleteMapping("{userId}")
+	public void DeleteUserDetails(@RequestParam("userId") String userId) {
+
+	}
+
+	@PutMapping("{userId}")
+	public void updateCourseDetails(@RequestParam("userId") String userId, @RequestBody() User user) {
+	}
+}

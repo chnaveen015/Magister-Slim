@@ -3,9 +3,7 @@ package com.magister.slim.restcontroller;
 import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.magister.slim.entity.Resource;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Theme;
 import com.magister.slim.entity.Unit;
@@ -27,7 +26,6 @@ import com.magister.slim.service.UserAppService;
 
 @RestController
 @RequestMapping("studyGuide/{studyGuideId}/theme/{themeId}")
-@CrossOrigin(origins = "http://localhost:4200")
 public class UnitController {
 
 	@Autowired
@@ -71,6 +69,14 @@ public class UnitController {
 	public String deleteUnitDetails(@PathVariable("unitId") String unitId,
 			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId) {
 		return unitAppService.deleteUnit(unitId, themeId, studyGuideId);
+	}
+
+	@RequestMapping(value = "unit/{unitId}", method = RequestMethod.POST)
+	public Resource addStudyGuide(@RequestBody Resource resource, @PathVariable("unitId") String unitId)
+			throws ParseException {
+		System.out.println(unitId + "," + resource);
+		System.out.println("Hiii");
+		return unitAppService.addToUnit(unitId, resource);
 	}
 
 	@RequestMapping(value = "/unit/{unitId}", method = RequestMethod.PUT)

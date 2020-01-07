@@ -6,11 +6,15 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.magister.slim.entity.Resource;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Theme;
 import com.magister.slim.entity.Unit;
 import com.magister.slim.references.AssignmentReference;
+import com.magister.slim.references.ResourceReference;
+import com.magister.slim.references.StudyGuideReference;
 import com.magister.slim.references.UnitReference;
+import com.magister.slim.repository.ResourceInterface;
 import com.magister.slim.repository.StudyGuideInterface;
 import com.magister.slim.repository.ThemeInterface;
 import com.magister.slim.repository.UnitInterface;
@@ -24,6 +28,8 @@ public class UnitAppService {
 	ThemeInterface themeInterface;
 	@Autowired
 	StudyGuideInterface studyGuideInterface;
+	@Autowired
+	ResourceInterface resourceInterface;
 	@Autowired
 	UnitAppService unitAppService;
 	@Autowired
@@ -70,6 +76,24 @@ public class UnitAppService {
 		studyGuideInterface.save(studyGuide);
 		unitInterface.save(unit);
 		return unit;
+	}
+
+	public Resource addToUnit(String unitId, Resource resource) {
+		Unit unit = unitInterface.findById(unitId).get();
+		resource.setStudyGuideReference(new StudyGuideReference(unit.getStudyGuideReference().getStudyGuideId(),
+				unit.getStudyGuideReference().getStudyGuideName(), unit.getStudyGuideReference().isActive()));
+		resourceInterface.save(resource);
+		List<ResourceReference> resources = new ArrayList<ResourceReference>();
+		if (unit != null) {
+			resources = unit.getResources();
+			if (resources == null)
+				resources = new ArrayList<ResourceReference>();
+			resources.add(new ResourceReference(resource.getResourceId(), resource.getResourceType(),
+					resource.getResourceName()));
+			unit.setResources(resources);
+			unitInterface.save(unit);
+		}
+		return resource;
 	}
 
 	public Unit addUnit(Unit unit) {

@@ -13,13 +13,10 @@ import com.magister.slim.entity.OfferingLevel;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.references.CourseReference;
 import com.magister.slim.references.GroupReference;
-import com.magister.slim.references.OfferingLevelReference;
 import com.magister.slim.references.StudyGuideReference;
 import com.magister.slim.repository.CourseInterface;
 import com.magister.slim.repository.GroupInterface;
 import com.magister.slim.repository.OfferingLevelInterface;
-
-import net.bytebuddy.utility.privilege.GetSystemPropertyAction;
 
 @Service
 public class CourseAppService {

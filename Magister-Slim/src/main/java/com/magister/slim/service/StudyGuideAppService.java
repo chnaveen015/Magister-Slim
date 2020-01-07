@@ -47,9 +47,15 @@ public class StudyGuideAppService {
 
 	public List<StudyGuide> getStudyGuide(User user) {
 		List<StudyGuide> studyGuides = studyGuideInterface.findAll();
-		List<StudyGuide>updatedStudyguides=studyGuides.stream().filter(studyGuide -> studyGuide.getTeacherReference().getTeacherid().equals(user.getUserid())==true && studyGuide.isActive()==true).collect(Collectors.toList());
-		return updatedStudyguides;
+		if (studyGuides != null) {
+			List<StudyGuide> updatedStudyguides = studyGuides.stream().filter(
+					studyGuide -> studyGuide.getTeacherReference().getTeacherid().equals(user.getUserid()) == true
+							&& studyGuide.isActive() == true)
+					.collect(Collectors.toList());
+			return updatedStudyguides;
 		}
+		return null;
+	}
 
 	public String deleteStudyGuide(String studyGuideId) {
 		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
@@ -137,24 +143,6 @@ public class StudyGuideAppService {
 		sR.add(studyGuideReference);
 		return sR;
 	}
-//
-//	public CourseReference courseDetails(int id, String courseName) {
-//		CourseReference courseReference = new CourseReference();
-//		courseReference.setCourseId(id);
-//		courseReference.setCourseName(courseName);
-//		courseReference.setActive(true);
-//		return courseReference;
-//	}
-//
-//	public List<StudentReference> studentDetails(int id, String studentName) {
-//		StudentReference student = new StudentReference();
-//		List<StudentReference> studentReference = new ArrayList<StudentReference>();
-//		student.setId(id);
-//		student.setName(studentName);
-//		studentReference.add(student);
-//		return studentReference;
-//	}
-//
 
 	public TeacherReference teacherDetails(String id, String teacherName) {
 		TeacherReference teacherReference = new TeacherReference();

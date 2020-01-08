@@ -16,7 +16,6 @@ import com.magister.slim.service.UserAppService;
 
 @RestController
 public class ResourceController {
-
 	@Autowired
 	ResourceAppService resourceAppService;
 

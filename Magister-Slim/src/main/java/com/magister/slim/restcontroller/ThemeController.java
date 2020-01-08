@@ -20,7 +20,6 @@ import com.magister.slim.repository.ThemeInterface;
 import com.magister.slim.repository.UnitInterface;
 import com.magister.slim.service.ThemeAppService;
 import com.magister.slim.service.UserAppService;
-
 @RestController
 @RequestMapping("studyGuide/{studyGuideId}")
 public class ThemeController {

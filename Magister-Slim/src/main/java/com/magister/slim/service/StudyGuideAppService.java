@@ -40,7 +40,6 @@ public class StudyGuideAppService {
 		} else
 			return null;
 	}
-
 	public List<StudyGuide> getStudyGuide(String studyGuideName) {
 		return studyGuideInterface.getStudyGuides(studyGuideName);
 	}

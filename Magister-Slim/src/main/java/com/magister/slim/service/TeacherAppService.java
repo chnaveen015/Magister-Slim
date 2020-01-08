@@ -26,7 +26,6 @@ public class TeacherAppService {
 		List<Teacher> teachers=teacherInterface.findAll();
 		return teachers;
 	}
-	
 	public Teacher addTeacher(Teacher teacher)
 	{
 		if(userAppService.addUser(teacher))

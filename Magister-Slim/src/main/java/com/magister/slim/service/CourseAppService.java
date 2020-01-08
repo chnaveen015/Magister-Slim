@@ -31,7 +31,6 @@ public class CourseAppService {
 	OfferingLevelInterface offeringLevelInterface;
 	@Autowired
 	GroupInterface groupInterface;
-
 	public Course getCourse(String courseid) {
 		Course course=courseInterface.findById(courseid).get();
 		return course;

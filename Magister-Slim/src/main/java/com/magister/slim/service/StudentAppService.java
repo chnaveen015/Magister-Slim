@@ -9,26 +9,27 @@ import com.magister.slim.repository.StudentInterface;
 
 @Service
 public class StudentAppService {
-	
+
 	@Autowired
 	StudentInterface studentInterface;
 	@Autowired
 	UserAppService userAppService;
-	
-	public Student deleteStudent(Student student)
-	{
+
+	public Student deleteStudent(Student student) {
 		studentInterface.deleteById(student.getId());
 		return student;
 	}
-	public List<Student> getStudents(String studentName)
-	{
-		List<Student> student1=studentInterface.findAll();
+
+	public List<Student> getStudents(String studentName) {
+		List<Student> student1 = studentInterface.findAll();
 		return student1;
 	}
+
 	public Student getStudent(String studentid) {
-		Student student=studentInterface.findById(studentid).get();
+		Student student = studentInterface.findById(studentid).get();
 		return student;
 	}
+
 	public Student addStudentDetails(Student studentDetails) {
 		return studentInterface.save(studentDetails);
 	}

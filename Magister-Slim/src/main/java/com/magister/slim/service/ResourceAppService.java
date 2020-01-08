@@ -35,7 +35,6 @@ public class ResourceAppService {
 			return resources;
 		}
 	}
-
 	public List<Resource> getResources(User user) {
 		if (resourceInterface.findAll().isEmpty())
 			return null;

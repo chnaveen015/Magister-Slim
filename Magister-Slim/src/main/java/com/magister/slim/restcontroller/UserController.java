@@ -35,7 +35,6 @@ public class UserController {
 	public void DeleteUserDetails(@RequestParam("userId") String userId) {
 
 	}
-
 	@PutMapping("{userId}")
 	public void updateCourseDetails(@RequestParam("userId") String userId, @RequestBody() User user) {
 	}

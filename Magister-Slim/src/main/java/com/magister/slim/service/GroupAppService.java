@@ -59,7 +59,6 @@ public class GroupAppService {
 
 	public Group addGroupDetails(Group groupDetails) {
 		if (groupInterface.save(groupDetails) != null) {
-			//offeringLevelAppService.updateGroupReferences(groupDetails);
 			teacherAppService.updateGroupReferences(groupDetails);
 			courseAppService.updateGroupReferences(groupDetails);
 			return groupDetails;
@@ -73,7 +72,6 @@ public class GroupAppService {
 			if (group.getCourseReference().getCourseId().equals(courseId)) {
 				group.setActive(false);
 				groupInterface.save(group);
-				//offeringLevelAppService.deleteGroupReference(offeringLevelId, groupId);
 				courseAppService.deleteGroupReference(courseId,groupId);
 			}
 			return group;
@@ -91,65 +89,6 @@ public class GroupAppService {
 		}
 		return null;
 	}
-
-//	public GroupReference getGroupReference(String groupId, String offeringLevelId) {
-//		if (groupInterface.findById(groupId).isPresent()) {
-//			Group groupDetails = groupInterface.findById(groupId).get();
-//			if (groupDetails.getOfferingLevelReference().getOfferingLevelId().equals(offeringLevelId)
-//					&& groupDetails.isActive() == true)
-//				return new GroupReference(groupDetails.getGroupId(), groupDetails.getGroupName(), true);
-//			else
-//				return null;
-//		}
-//		return null;
-//	}
-
-//	public boolean updateCourseReferences(GroupReference groupReference, Course courseDetails) {
-//		List<CourseReference> courseReferences = new ArrayList<CourseReference>();
-//		if (groupInterface.findById(groupReference.getGroupId()).isPresent()) {
-//			Group groupDetails = groupInterface.findById(groupReference.getGroupId()).get();
-//			courseReferences = groupDetails.getCourseReference();
-//			if (courseReferences == null)
-//				courseReferences = new ArrayList<CourseReference>();
-//			courseReferences.add(new CourseReference(courseDetails.getCourseId(), courseDetails.getCourseName(), true));
-//			groupDetails.setCoursesreference(courseReferences);
-//			if (groupInterface.save(groupDetails) != null)
-//				return true;
-//			else
-//				return false;
-//		}
-//		return false;
-//	}
-
-//	public boolean deleteCourseReference(String groupId, String courseId) {
-//		Group groupDetails = groupInterface.findById(groupId).get();
-//		List<CourseReference> courseReferences = (groupDetails.getCoursesreference()).stream().map(courseReference -> {
-//			if (courseReference.getCourseId().equals( courseId)) {
-//				courseReference.setActive(false);
-//			}
-//			return courseReference;
-//		}).collect(Collectors.toList());
-//		groupDetails.setCoursesreference(courseReferences);
-//		if(groupInterface.save(groupDetails)!=null)
-//		return true;
-//		else
-//			return false;
-//	}
-
-//	public boolean updateCourseReferenceDetails(String groupId, Course course) {
-//		Group groupDetails = groupInterface.findById(groupId).get();
-//		List<CourseReference> courseReferences = (groupDetails.getCoursesreference()).stream().map(courseReference -> {
-//			if (courseReference.getCourseId().equals(course.getCourseId())) {
-//				courseReference.setCourseName(course.getCourseName());
-//			}
-//			return courseReference;
-//		}).collect(Collectors.toList());
-//		groupDetails.setCoursesreference(courseReferences);
-//		if(groupInterface.save(groupDetails)!=null)
-//		return true;
-//		else
-//			return false;
-//	}
 
 	public Group getGroupDetailsById(String courseId, String groupId) {
 		Group groupDetails=groupInterface.findAll().stream().filter(oneGroup->oneGroup.getGroupId().equals(groupId)).findFirst().get();
@@ -170,37 +109,7 @@ public class GroupAppService {
 			return null;
 	}
 
-//	public boolean deleteOfferingLevelreference(String offeringLevelId) {
-//		OfferingLevel offeringLevel = offeringLevelInterface.findById(offeringLevelId).get();
-//		List<GroupReference> groupReferences = (offeringLevel.getGroupReferences()).stream().map(groupReference -> {
-//			groupReference.setActive(false);
-//			Group group=groupInterface.findById(groupReference.getGroupId()).get();
-//			group.setActive(false);
-//			group.getOfferingLevelReference().setActive(false);
-//			group=deleteCourseReferences(group);
-//			groupInterface.save(group);
-//			return groupReference;
-//		}).collect(Collectors.toList());
-//		offeringLevel.setGroupReferences(groupReferences);
-//		offeringLevelInterface.save(offeringLevel);
-//		return true;
-//	}
-//	public Group deleteCourseReferences(Group group)
-//	{
-//		List<CourseReference> courseReferences = (group.getCoursesreference()).stream().map(courseReference -> {
-//			
-//			courseReference.setActive(false);
-//			Course course=courseInterface.findById(courseReference.getCourseId()).get();
-//			course.setActive(false);
-//			course=deleteGroupReferences(course,group);
-//			courseInterface.save(course);
-//			return courseReference;
-//		}).collect(Collectors.toList());
-//		group.setCoursesreference(courseReferences);
-//		return group;
-//		
-//	}
-
+	@SuppressWarnings("unused")
 	private Course deleteGroupReferences(Course course, Group group) {
 		
 		List<GroupReference> groupReferences = course.getGroupReferences().stream().map(groupReference -> {

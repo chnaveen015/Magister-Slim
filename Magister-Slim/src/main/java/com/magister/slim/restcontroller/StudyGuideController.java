@@ -18,7 +18,6 @@ import com.magister.slim.entity.User;
 import com.magister.slim.model.MagisterInterceptor;
 import com.magister.slim.service.StudyGuideAppService;
 import com.magister.slim.service.UserAppService;
-
 @RestController
 public class StudyGuideController {
 

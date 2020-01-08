@@ -33,7 +33,6 @@ public class UserAppService {
 		User user = userInterface.findById(userid).get();
 		return user;
 	}
-
 	public static String generatePassword() {
 		int n = 9;
 		String x;

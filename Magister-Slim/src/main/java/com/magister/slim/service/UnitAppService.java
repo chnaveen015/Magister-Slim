@@ -48,7 +48,6 @@ public class UnitAppService {
 		} else
 			return null;
 	}
-
 	public List<Unit> getUnits(String unitName, String themeId, String studyGuideId) {
 		List<Unit> units = unitInterface.getUnits(unitName);
 		List<Unit> unitReferences = units.stream().map(unitReference -> {

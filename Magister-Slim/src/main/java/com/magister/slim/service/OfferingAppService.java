@@ -143,19 +143,5 @@ public class OfferingAppService {
 		return true;
 	}
 
-//	public boolean checkOfferingLevelReferenceDetails(int offeringId, int offeringLevelId) {
-//		if(offeringInterface.findById(offeringId).isPresent())
-//		{
-//		Offering offering = offeringInterface.findById(offeringId).get();
-//		
-//		boolean offeringLevelReference = offering.getOfferingLevelReferences().stream().filter((offeringReference) -> offeringReference.getOfferingLevelId() == offeringLevelId).findAny().isPresent();
-//		if(offeringLevelReference)
-//			return true;
-//		else 
-//			return false;
-//		}
-//		return false;
-//
-//
-//	}
+
 }

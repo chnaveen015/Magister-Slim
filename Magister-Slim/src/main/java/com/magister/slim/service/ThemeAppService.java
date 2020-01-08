@@ -25,7 +25,6 @@ public class ThemeAppService {
 	UnitInterface unitInterface;
 	@Autowired
 	StudyGuideAppService studyGuideAppService;
-
 	public List<Theme> getThemes(String themeName, String studyGuideId) {
 		List<Theme> themes = themeInterface.getThemes(themeName);
 		List<Theme> themeReferences = themes.stream().map(themeReference -> {

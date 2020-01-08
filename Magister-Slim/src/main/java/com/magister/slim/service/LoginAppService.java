@@ -20,7 +20,6 @@ public class LoginAppService {
 	@Autowired
 	StudentInterface studentInterface;
 
-	@SuppressWarnings("static-access")
 	public User loginValidation(User user) {
 		role role = null;
 		user=userInterface.validateUser(user.getUsername(), user.getPassword());

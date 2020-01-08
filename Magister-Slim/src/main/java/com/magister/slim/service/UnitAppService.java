@@ -48,6 +48,7 @@ public class UnitAppService {
 		} else
 			return null;
 	}
+
 	public List<Unit> getUnits(String unitName, String themeId, String studyGuideId) {
 		List<Unit> units = unitInterface.getUnits(unitName);
 		List<Unit> unitReferences = units.stream().map(unitReference -> {
@@ -79,8 +80,16 @@ public class UnitAppService {
 
 	public Resource addToUnit(String unitId, Resource resource) {
 		Unit unit = unitInterface.findById(unitId).get();
-		resource.setStudyGuideReference(new StudyGuideReference(unit.getStudyGuideReference().getStudyGuideId(),
-				unit.getStudyGuideReference().getStudyGuideName(), unit.getStudyGuideReference().isActive()));
+		System.out.println(unit);
+		List<StudyGuideReference> studyGuideReferences = resource.getStudyGuideReference();
+		if (studyGuideReferences == null) {
+			studyGuideReferences = new ArrayList<>();
+		}
+		studyGuideReferences = new ArrayList<>();
+		studyGuideReferences.add(new StudyGuideReference(unit.getStudyGuideReference().getStudyGuideId(),
+				unit.getStudyGuideReference().getStudyGuideName(),unit.getThemeReference().getThemeId(),
+				unit.getUnitId(), unit.getStudyGuideReference().isActive()));
+		resource.setStudyGuideReference(studyGuideReferences);
 		resourceInterface.save(resource);
 		List<ResourceReference> resources = new ArrayList<ResourceReference>();
 		if (unit != null) {

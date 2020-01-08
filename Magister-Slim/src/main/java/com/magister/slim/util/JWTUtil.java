@@ -43,18 +43,6 @@ public class JWTUtil {
 	public static boolean verifyToken(String token) {
 		try {
 			JWTVerifier verifier = JWT.require(JWT_ALGORITHM).withIssuer(ISSUER).acceptLeeway(1).acceptExpiresAt(5).build(); // Reusable verifier instance
-			verifier.verify(token);
-//			BaseVerification verification = (BaseVerification) JWT.require(JWT_ALGORITHM)
-//				    .acceptLeeway(1)
-//				    .acceptExpiresAt(5);
-//				Clock clock = new Clock() {
-//					
-//					@Override
-//					public Date getToday() {
-//						return Date.valueOf("2019-11-03");
-//					}
-//				}; //Must implement Clock interface
-//				verifier = verification.build(clock);
 		} catch (JWTVerificationException exception) {
 			exception.printStackTrace();
 			System.out.println("Hii");

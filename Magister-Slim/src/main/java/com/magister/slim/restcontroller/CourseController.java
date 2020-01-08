@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Course;
-import com.magister.slim.entity.Group;
-import com.magister.slim.references.GroupReference;
 import com.magister.slim.references.OfferingLevelReference;
 import com.magister.slim.service.CourseAppService;
 import com.magister.slim.service.GroupAppService;
@@ -22,7 +19,6 @@ import com.magister.slim.service.UserAppService;
 
 @RestController
 @RequestMapping("offering/{offeringId}/offering-level/{offeringLevelId}/course")
-@CrossOrigin(origins = "http://localhost:4200")
 public class CourseController {
 
 	@Autowired
@@ -37,7 +33,7 @@ public class CourseController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public Course addCourse(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@RequestBody Course courseDetails) throws ParseException {
 		courseDetails.setActive(true);
-		courseDetails.setCourseId(userAppService.generateNumber());
+		courseDetails.setCourseId(UserAppService.generateNumber());
 		OfferingLevelReference offeringLevelReference=offeringLevelAppService.getOfferingLevelReference(offeringId,offeringLevelId);
 		if(offeringLevelReference!=null)
 		{
@@ -62,7 +58,7 @@ public class CourseController {
 		course.setOfferingLevelReference(new OfferingLevelReference());
 		course.getOfferingLevelReference().setOfferingLevelId(offeringLevelId);
 		Course status=courseAppService.updateCourseDetails(offeringLevelId,course);
-		return null;
+		return status;
 	}
 	
 	@RequestMapping(value = "{courseId}", method = RequestMethod.GET)

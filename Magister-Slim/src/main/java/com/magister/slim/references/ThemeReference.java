@@ -5,6 +5,18 @@ public class ThemeReference {
 	private String themeId;
 	private String themeName;
 	private boolean isActive;
+
+	public ThemeReference(String themeId, String themeName, boolean isActive) {
+		super();
+		this.themeId = themeId;
+		this.themeName = themeName;
+		this.isActive = isActive;
+	}
+
+	public ThemeReference() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getThemeId() {
 		return themeId;
 	}

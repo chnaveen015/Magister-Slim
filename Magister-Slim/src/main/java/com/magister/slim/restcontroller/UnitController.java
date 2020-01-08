@@ -1,6 +1,6 @@
 package com.magister.slim.restcontroller;
 
-import java.text.ParseException;
+import java.text.ParseException; 
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +72,10 @@ public class UnitController {
 	}
 
 	@RequestMapping(value = "unit/{unitId}", method = RequestMethod.POST)
-	public Resource addStudyGuide(@RequestBody Resource resource, @PathVariable("unitId") String unitId)
+	public Resource addResource(@RequestBody Resource resource, @PathVariable("unitId") String unitId,
+			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId)
 			throws ParseException {
+		System.out.println(themeId+","+studyGuideId);
 		System.out.println(unitId + "," + resource);
 		System.out.println("Hiii");
 		return unitAppService.addToUnit(unitId, resource);

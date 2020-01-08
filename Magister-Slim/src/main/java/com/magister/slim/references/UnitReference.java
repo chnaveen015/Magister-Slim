@@ -28,5 +28,14 @@ public class UnitReference {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	
+
+	public UnitReference(String unitId, String unitName, boolean isActive) {
+		super();
+		this.unitId = unitId;
+		this.unitName = unitName;
+		this.isActive = isActive;
+	}
+	public UnitReference() {
+		
+	}
 }

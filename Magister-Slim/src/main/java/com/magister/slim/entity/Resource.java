@@ -1,5 +1,7 @@
 package com.magister.slim.entity;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,7 +15,7 @@ public class Resource {
 	private String resourceId;
 	private String resourceType;
 	private String resourceName;
-	private StudyGuideReference studyGuideReference;
+	private List<StudyGuideReference> studyGuideReferences;
 	private TeacherReference createdBy;
 	private boolean isActive;
 
@@ -41,12 +43,12 @@ public class Resource {
 		this.resourceName = resourceName;
 	}
 
-	public StudyGuideReference getStudyGuideReference() {
-		return studyGuideReference;
+	public List<StudyGuideReference> getStudyGuideReference() {
+		return studyGuideReferences;
 	}
 
-	public void setStudyGuideReference(StudyGuideReference studyGuideReference) {
-		this.studyGuideReference = studyGuideReference;
+	public void setStudyGuideReference(List<StudyGuideReference> studyGuideReference) {
+		this.studyGuideReferences = studyGuideReference;
 	}
 
 	public TeacherReference getCreatedBy() {
@@ -68,20 +70,21 @@ public class Resource {
 	@Override
 	public String toString() {
 		return "Resource [resourceId=" + resourceId + ", resourceType=" + resourceType + ", resourceName="
-				+ resourceName + ", studyGuideReference=" + studyGuideReference + ", createdBy=" + createdBy
+				+ resourceName + ", studyGuideReferences=" + studyGuideReferences + ", createdBy=" + createdBy
 				+ ", isActive=" + isActive + "]";
 	}
 
-	public Resource(String resourceId, String resourceType, String resourceName, StudyGuideReference studyGuideReference,
-			TeacherReference createdBy, boolean isActive) {
+	public Resource(String resourceId, String resourceType, String resourceName,
+			List<StudyGuideReference> studyGuideReferences, TeacherReference createdBy, boolean isActive) {
 		super();
 		this.resourceId = resourceId;
 		this.resourceType = resourceType;
 		this.resourceName = resourceName;
-		this.studyGuideReference = studyGuideReference;
+		this.studyGuideReferences = studyGuideReferences;
 		this.createdBy = createdBy;
 		this.isActive = isActive;
 	}
+
 	public Resource()
 	{
 		

@@ -56,13 +56,7 @@ public class StudyGuideController {
 		return studyGuide;
 	}
 
-//	@RequestMapping(method = RequestMethod.GET)
-//	public List<StudyGuide> getStudyGuideDetails(@RequestParam String studyGuideName,HttpServletRequest request) {
-//		User user= (User) request.getServletContext().getAttribute("user");
-//		System.out.println(user);
-//		List<StudyGuide> studyGuide = studyGuideAppService.getStudyGuide(studyGuideName);
-//		return studyGuide;
-//	}
+
 	@RequestMapping(value="studyGuides",method = RequestMethod.GET)
 	public List<StudyGuide> getStudyGuide(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		User user= (User) request.getServletContext().getAttribute("user");

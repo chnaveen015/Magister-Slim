@@ -27,12 +27,7 @@ public class AssignmentResultAppService {
 		return assignmentResult;
 	}
 
-//	public AssignmentResult deleteAssignmentResult(int assignmentResultId) {
-//		AssignmentResult assignmentResult=assignmentResultInterface.findById(assignmentResultId).get();
-//		assignmentResult.set
-//		assignmentResultInterface.save(assignmentResult);
-//		return assignmentResult;
-//	}
+
 
 	public AssignmentResult addAssignmentResult(AssignmentResult assignmentResult) {
 		assignmentResultInterface.save(assignmentResult);
@@ -41,17 +36,7 @@ public class AssignmentResultAppService {
 		return assignmentResult;
 	}
 
-//	private List<AssignmentResultReference> assignmentDetails(int assignmentId,
-//			AssignmentResult assignmentResult) {
-//		AssignmentReference assignmentReference = new AssignmentReference();
-//		List<AssignmentResultReference> assignmentResults = new ArrayList<AssignmentResultReference>();
-//		assignmentResults = assignmentResult.getAssignmentReference();
-//		if (assignmentResults == null)
-//			assignmentResults = new ArrayList<AssignmentResultReference>();
-////		assignmentReference.setAssignmentResultId(assignmentId);
-////		assignmentResults.add(assignmentReference);
-//		return assignmentResults;
-//	}
+
 
 	public AssignmentResult getAssignmentResult(String assignmentResultid, String assignmentId, String studyGuideId,
 			String themeId) {

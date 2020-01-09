@@ -20,9 +20,8 @@ public class Course {
 	private OfferingLevelReference offeringLevelReference;
 	private boolean isActive;
 
-	public Course()
-	{
-		
+	public Course() {
+
 	}
 
 	public String getCourseId() {
@@ -90,6 +89,5 @@ public class Course {
 				+ studyGuideReferences + ", groupReferences=" + groupReferences + ", offeringLevelReference="
 				+ offeringLevelReference + ", isActive=" + isActive + "]";
 	}
-	
 
 }

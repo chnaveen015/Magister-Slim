@@ -53,11 +53,6 @@ public class AssignmentResultController {
 		return status;
 	}
 
-//	@RequestMapping(value = "/{assignmentResultId}", method = RequestMethod.DELETE)
-//	public AssignmentResult deleteAssignmentResultdetails(@PathVariable("assignmentResultId") int assignmentResultId) {
-//		AssignmentResult status = assignmentResultAppService.deleteAssignmentResult(assignmentResultId);
-//		return status;
-//	}
 
 	@RequestMapping(value = "/{assignmentResultId}", method = RequestMethod.PUT)
 	public AssignmentResult updateAssignmentResultdetails(@RequestBody AssignmentResult assignmentResult,

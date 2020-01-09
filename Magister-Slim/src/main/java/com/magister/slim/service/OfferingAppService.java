@@ -3,20 +3,14 @@ package com.magister.slim.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.magister.slim.entity.Course;
 import com.magister.slim.entity.Offering;
 import com.magister.slim.entity.OfferingLevel;
-import com.magister.slim.entity.StudyGuide;
-import com.magister.slim.entity.Theme;
 import com.magister.slim.references.CourseReference;
 import com.magister.slim.references.OfferingLevelReference;
-import com.magister.slim.references.OfferingReference;
-import com.magister.slim.references.ThemeReference;
 import com.magister.slim.repository.CourseInterface;
 import com.magister.slim.repository.OfferingInterface;
 import com.magister.slim.repository.OfferingLevelInterface;

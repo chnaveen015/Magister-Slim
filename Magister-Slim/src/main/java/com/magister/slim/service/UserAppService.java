@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.magister.slim.entity.Teacher;
 import com.magister.slim.entity.User;
+import com.magister.slim.entity.User.role;
 import com.magister.slim.repository.UserInterface;
 
 @Service
@@ -66,7 +67,7 @@ public class UserAppService {
 
 	public boolean addUser(Teacher teacher) {
 		// TODO Auto-generated method stub
-		User user=new User(teacher.getTeacherId(),teacher.getName(),generatePassword(),new User().getRole().teacher,true);
+		User user=new User(teacher.getTeacherId(),teacher.getName(),generatePassword(),role.teacher,true);
 		if(userInterface.save(user)!=null)
 			return true;
 		else return false;

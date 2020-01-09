@@ -19,14 +19,14 @@ public class StudentController {
 	@RequestMapping(method = RequestMethod.POST)
 	public Student addStudent(@RequestBody Student studentDetails) {
 		studentDetails.setActive(true);
-	//	studentDetails.setUserReference(studentDetails.getid());
+
 		studentAppService.addStudentDetails(studentDetails);
 		return null;
 	}
 
 	@RequestMapping(path="{studentId}",method = RequestMethod.DELETE)
 	public Student deleteStudentDetails(@RequestParam("studentId") String studenId) {
-		//Student status = studentAppService.deleteStudent(student);
+
 		return null;
 	}
 
@@ -36,11 +36,7 @@ public class StudentController {
 		return null;
 	}
 
-//	@RequestMapping(method = RequestMethod.GET)
-//	public List<Student> get(@RequestParam String studentName) {
-//		List<Student> students = studentAppService.getStudents(studentName);
-//		return students;
-//	}
+
 
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
 	public Student getStudentDetails(@RequestParam String studentid) {

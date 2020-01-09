@@ -14,10 +14,9 @@ public class Offering {
 	private String offeringName;
 	private List<OfferingLevelReference> offeringLevelReferences;
 	private boolean isActive;
-	
-	public Offering()
-	{
-		
+
+	public Offering() {
+
 	}
 
 	public String getOfferingId() {
@@ -66,5 +65,5 @@ public class Offering {
 		return "Offering [offeringId=" + offeringId + ", offeringName=" + offeringName + ", offeringLevelReferences="
 				+ offeringLevelReferences + ", isActive=" + isActive + "]";
 	}
-	
+
 }

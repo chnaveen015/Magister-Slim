@@ -84,16 +84,7 @@ public class CourseAppService {
 		}
 		return null;
 	}
-//	public Course updateCourseDetails(String groupId, Course course) {
-//		if (courseInterface.findById(course.getCourseId()).isPresent()) {
-//			Course courseDetails = courseInterface.findById(course.getCourseId()).get();
-//			courseDetails.setCourseName(course.getCourseName());
-//			courseInterface.save(courseDetails);
-//			boolean status = groupAppService.updateCourseReferenceDetails(groupId,course);
-//			return courseDetails;
-//		}
-//		return null;
-//	}
+
 	public Course updateCourseDetails(String offeringLevelId, Course course) {
 		Course courseDetails=(courseInterface.findAll()).stream().filter(SingleCourse-> SingleCourse.getCourseId().equals(course.getCourseId())).findFirst().get();
 		if (courseDetails!=null) {

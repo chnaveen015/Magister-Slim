@@ -23,7 +23,7 @@ public class MagisterInterceptor implements HandlerInterceptor {
 		else if (isUserLogged(request) && JWTUtil.verifyToken(request.getHeader("Authorization").substring(7)) ) {
 			return true;
 		} else {
-			return true;
+			return false;
 		}
 	}
 

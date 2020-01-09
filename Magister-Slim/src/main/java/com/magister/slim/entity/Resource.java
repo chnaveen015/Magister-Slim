@@ -85,8 +85,7 @@ public class Resource {
 		this.isActive = isActive;
 	}
 
-	public Resource()
-	{
-		
+	public Resource() {
+
 	}
 }

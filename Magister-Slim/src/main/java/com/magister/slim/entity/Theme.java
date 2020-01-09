@@ -35,7 +35,7 @@ public class Theme {
 	public void setThemeName(String themeName) {
 		this.themeName = themeName;
 	}
-	
+
 	public String getThemeDescription() {
 		return themeDescription;
 	}
@@ -95,8 +95,7 @@ public class Theme {
 		this.isActive = isActive;
 	}
 
-	public Theme()
-	{
-		
+	public Theme() {
+
 	}
 }

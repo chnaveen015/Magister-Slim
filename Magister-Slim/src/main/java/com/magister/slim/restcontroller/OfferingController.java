@@ -49,12 +49,7 @@ public class OfferingController {
 
 	}
 
-//	@RequestMapping(method = RequestMethod.GET)
-//	public List<Offering> getOfferingDetails(@RequestParam String offeringName) {
-//		List<Offering> offerings = offeringAppService.getOfferings(offeringName);
-//		return offerings;
-//
-//	}
+
 	@GetMapping(value = "offerings")
 	public List<Offering>getOfferingList()
 	{

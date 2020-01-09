@@ -31,13 +31,15 @@ public class StudyGuide {
 	private Date validUpto;
 	private boolean isDeleted;
 	private boolean active;
-	
+
 	public boolean isActive() {
 		return active;
 	}
+
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
 	public StudyGuide(String studyGuideId, String studyGuideName, TeacherReference teacherReference,
 			List<ThemeReference> themes, List<UnitReference> units, List<StudentReference> students,
 			CourseReference courseReference, OfferingReference offeringReference,
@@ -58,80 +60,103 @@ public class StudyGuide {
 		this.isDeleted = isDeleted;
 		this.active = active;
 	}
+
 	public void setStudyGuideId(String studyGuideId) {
-		this.studyGuideId= studyGuideId;
+		this.studyGuideId = studyGuideId;
 	}
+
 	public String getStudyGuideName() {
 		return studyGuideName;
 	}
+
 	public void setStudyGuideName(String studyGuideName) {
 		this.studyGuideName = studyGuideName;
 	}
+
 	public TeacherReference getTeacherReference() {
 		return teacherReference;
 	}
+
 	public void setTeacherReference(TeacherReference teacherReference) {
 		this.teacherReference = teacherReference;
 	}
+
 	public List<ThemeReference> getThemes() {
 		return themes;
 	}
+
 	public void setThemes(List<ThemeReference> themes) {
 		this.themes = themes;
 	}
+
 	public List<UnitReference> getUnits() {
 		return units;
 	}
+
 	public void setUnits(List<UnitReference> units) {
 		this.units = units;
 	}
+
 	public List<StudentReference> getStudents() {
 		return students;
 	}
+
 	public void setStudents(List<StudentReference> students) {
 		this.students = students;
 	}
+
 	public CourseReference getCourseReference() {
 		return courseReference;
 	}
+
 	public void setCourseReference(CourseReference courseReference) {
 		this.courseReference = courseReference;
 	}
+
 	public OfferingReference getOfferingReference() {
 		return offeringReference;
 	}
+
 	public void setOfferingReference(OfferingReference offeringReference) {
 		this.offeringReference = offeringReference;
 	}
+
 	public OfferingLevelReference getOfferingLevelReference() {
 		return offeringLevelReference;
 	}
+
 	public void setOfferingLevelReference(OfferingLevelReference offeringLevelReference) {
 		this.offeringLevelReference = offeringLevelReference;
 	}
+
 	public Date getValidOnwards() {
 		return validOnwards;
 	}
+
 	public void setValidOnwards(Date validOnwards) {
 		this.validOnwards = validOnwards;
 	}
+
 	public Date getValidUpto() {
 		return validUpto;
 	}
+
 	public void setValidUpto(Date validUpto) {
 		this.validUpto = validUpto;
 	}
+
 	public boolean isDeleted() {
 		return isDeleted;
 	}
+
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	
+
 	public String getStudyGuideId() {
 		return studyGuideId;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "StudyGuide [studyGuideId=" + studyGuideId + ", studyGuideName=" + studyGuideName + ", teacherReference="
@@ -140,11 +165,9 @@ public class StudyGuide {
 				+ ", offeringLevelReference=" + offeringLevelReference + ", validOnwards=" + validOnwards
 				+ ", validUpto=" + validUpto + ", isDeleted=" + isDeleted + ", active=" + active + "]";
 	}
-	public StudyGuide()
-	{
-		
+
+	public StudyGuide() {
+
 	}
-	
-	
-	
+
 }

@@ -9,18 +9,17 @@ import com.magister.slim.repository.UserInterface;
 
 @Service
 public class LoginAppService {
-	
+
 	@Autowired
 	UserInterface userInterface;
-	
+
 	@Autowired
 	StudentInterface studentInterface;
 
 	public User loginValidation(User user) {
-		user=userInterface.validateUser(user.getUsername(), user.getPassword());
-		System.out.println(user);
-		if(user!=null)
-		return user;
+		user = userInterface.validateUser(user.getUsername(), user.getPassword());
+		if (user != null)
+			return user;
 		else
 			return null;
 	}

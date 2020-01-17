@@ -17,7 +17,6 @@ import com.magister.slim.service.GroupAppService;
 import com.magister.slim.service.OfferingLevelAppService;
 import com.magister.slim.service.UserAppService;
 
-
 @RequestMapping("offering/{offeringId}/offering-level/{offeringLevelId}/course/{courseId}/group")
 public class GroupController {
 
@@ -31,46 +30,52 @@ public class GroupController {
 	UserAppService userAppService;
 
 	@PostMapping()
-	public Group createGroup(@PathVariable("offeringId")String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId,@RequestBody Group groupDetails) throws ParseException {
+	public Group createGroup(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId,
+			@RequestBody Group groupDetails) throws ParseException {
 		groupDetails.setActive(true);
 		groupDetails.setGroupId(UserAppService.generateNumber());
-		CourseReference courseReference=courseAppService.getCourseReference(courseId, offeringLevelId);
-		if(courseReference!=null)
-		{
+		CourseReference courseReference = courseAppService.getCourseReference(courseId, offeringLevelId);
+		if (courseReference != null) {
 			groupDetails.setCourseReference(courseReference);
-		Group status = groupAppService.addGroupDetails(groupDetails);
-		return status;
-		}
-		else return null;
+			Group status = groupAppService.addGroupDetails(groupDetails);
+			return status;
+		} else
+			return null;
 	}
-
 
 	@RequestMapping(value = "/{groupId}", method = RequestMethod.PUT)
-	public Group updateGroupDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId,@PathVariable("groupId")String groupId,@RequestBody Group groupDetails) {
+	public Group updateGroupDetails(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId,
+			@PathVariable("groupId") String groupId, @RequestBody Group groupDetails) {
 		groupDetails.setGroupId(groupId);
-		Group status=groupAppService.updateGroupDetails(courseId,groupDetails);
+		Group status = groupAppService.updateGroupDetails(courseId, groupDetails);
 		return status;
 	}
 
-
-
 	@RequestMapping(value = "{groupId}", method = RequestMethod.DELETE)
-	public Group deleteGroupDeatils(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId") String courseId,@PathVariable("groupId") String groupId) {
-		Group status=groupAppService.deleteGroup(offeringLevelId,courseId,groupId);
+	public Group deleteGroupDeatils(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId,
+			@PathVariable("groupId") String groupId) {
+		Group status = groupAppService.deleteGroup(offeringLevelId, courseId, groupId);
 		return status;
 	}
 
 	@RequestMapping(value = "{groupId}", method = RequestMethod.GET)
-	public Group getGroupDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId") String courseId,@PathVariable("groupId") String groupId) {
-		Group groupDetails=groupAppService.getGroupDetailsById(courseId,groupId);
-			
+	public Group getGroupDetails(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId,
+			@PathVariable("groupId") String groupId) {
+		Group groupDetails = groupAppService.getGroupDetailsById(courseId, groupId);
+
 		return groupDetails;
 
 	}
+
 	@GetMapping()
 	public List<Group> getGroupDetailsByName(@RequestParam("offeringId") String offeringId,
-			@RequestParam("offeringLevelId") String offeringLevelId,@RequestParam("courseId")String courseId,@RequestParam("groupName") String groupName) {
-		return groupAppService.getGroupByName(courseId,groupName);
+			@RequestParam("offeringLevelId") String offeringLevelId, @RequestParam("courseId") String courseId,
+			@RequestParam("groupName") String groupName) {
+		return groupAppService.getGroupByName(courseId, groupName);
 
 	}
 }

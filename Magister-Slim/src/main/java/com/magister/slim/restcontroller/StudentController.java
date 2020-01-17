@@ -24,19 +24,17 @@ public class StudentController {
 		return null;
 	}
 
-	@RequestMapping(path="{studentId}",method = RequestMethod.DELETE)
+	@RequestMapping(path = "{studentId}", method = RequestMethod.DELETE)
 	public Student deleteStudentDetails(@RequestParam("studentId") String studenId) {
 
 		return null;
 	}
 
-	@RequestMapping(path="{studentId}",method = RequestMethod.PUT)
-	public Student updateStudentDetails(@RequestParam("studentId") String studentId,@RequestBody Student student) {
-	//	Student status = studentAppService.addStudent(student);
+	@RequestMapping(path = "{studentId}", method = RequestMethod.PUT)
+	public Student updateStudentDetails(@RequestParam("studentId") String studentId, @RequestBody Student student) {
+		// Student status = studentAppService.addStudent(student);
 		return null;
 	}
-
-
 
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
 	public Student getStudentDetails(@RequestParam String studentid) {

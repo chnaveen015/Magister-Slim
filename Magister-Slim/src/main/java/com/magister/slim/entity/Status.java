@@ -6,6 +6,8 @@ public class Status {
 
 	@Id
 	private String id;
+	
+	
 
 	enum statusState {
 		STARTED, HANDEDIN, GRADED, COMPLETED;
@@ -19,4 +21,5 @@ public class Status {
 		this.id = id;
 	}
 
+	
 }

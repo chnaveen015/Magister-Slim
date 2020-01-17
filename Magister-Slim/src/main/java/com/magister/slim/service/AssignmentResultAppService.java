@@ -19,15 +19,13 @@ public class AssignmentResultAppService {
 	public List<AssignmentResult> getAssignmentResults(String assignmentId) {
 		List<AssignmentResult> assignmentResults = assignmentResultInterface.findAll();
 		List<AssignmentResult> assignmentResult = assignmentResults.stream().map(assignmentResultReference -> {
-			if (assignmentResultReference.getAssignmentReference().getAssignmentId().equals( assignmentId)) {
+			if (assignmentResultReference.getAssignmentReference().getAssignmentId().equals(assignmentId)) {
 				return assignmentResultReference;
 			} else
 				return null;
 		}).collect(Collectors.toList());
 		return assignmentResult;
 	}
-
-
 
 	public AssignmentResult addAssignmentResult(AssignmentResult assignmentResult) {
 		assignmentResultInterface.save(assignmentResult);
@@ -36,16 +34,13 @@ public class AssignmentResultAppService {
 		return assignmentResult;
 	}
 
-
-
 	public AssignmentResult getAssignmentResult(String assignmentResultid, String assignmentId, String studyGuideId,
 			String themeId) {
 		if (assignmentResultInterface.findById(assignmentResultid).isPresent()) {
 			AssignmentResult assignmentResult = assignmentResultInterface.findById(assignmentResultid).get();
 			if (assignmentResult.getAssignmentReference().getAssignmentId().equals(assignmentId))
 				return assignmentResult;
-		}
-		else
+		} else
 			return null;
 		return null;
 	}

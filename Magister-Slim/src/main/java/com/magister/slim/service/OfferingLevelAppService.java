@@ -46,7 +46,7 @@ public class OfferingLevelAppService {
 		OfferingLevel offeringLevel = offeringLevelInterface.findById(offeringLevelId).get();
 		offeringLevel.setActive(false);
 		offeringLevelInterface.save(offeringLevel);
-		 offeringAppService.deleteOfferingLevelReference(offeringId, offeringLevelId);
+		offeringAppService.deleteOfferingLevelReference(offeringId, offeringLevelId);
 		courseAppService.deleteOfferingLevelreference(offeringLevelId);
 		return offeringLevel;
 	}

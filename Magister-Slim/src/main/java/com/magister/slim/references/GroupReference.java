@@ -6,6 +6,18 @@ public class GroupReference {
 	private String groupName;
 	private boolean isActive;
 	
+	public GroupReference()
+	{
+		
+	}
+	
+	public GroupReference(String groupId, String groupName, boolean isActive) {
+		super();
+		this.groupId = groupId;
+		this.groupName = groupName;
+		this.isActive = isActive;
+	}
+	
 	public String getGroupId() {
 		return groupId;
 	}
@@ -24,20 +36,12 @@ public class GroupReference {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public GroupReference(String groupId, String groupName, boolean isActive) {
-		super();
-		this.groupId = groupId;
-		this.groupName = groupName;
-		this.isActive = isActive;
-	}
+	
 	@Override
 	public String toString() {
 		return "GroupReference [groupId=" + groupId + ", groupName=" + groupName + ", isActive=" + isActive + "]";
 	}
-	public GroupReference()
-	{
-		
-	}
+
 	
 
 }

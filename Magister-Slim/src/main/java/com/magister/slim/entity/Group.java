@@ -24,6 +24,16 @@ public class Group {
 
 	}
 
+	public Group( String groupName, List<StudentReference> students, TeacherReference teacherReference,
+			CourseReference courseReference, boolean isActive) {
+		super();
+		this.groupName = groupName;
+		this.students = students;
+		this.teacherReference = teacherReference;
+		this.courseReference = courseReference;
+		this.isActive = isActive;
+	}
+	
 	public String getGroupId() {
 		return groupId;
 	}
@@ -72,15 +82,58 @@ public class Group {
 		this.courseReference = courseReference;
 	}
 
-	public Group(String groupId, String groupName, List<StudentReference> students, TeacherReference teacherReference,
-			CourseReference courseReference, boolean isActive) {
-		super();
-		this.groupId = groupId;
-		this.groupName = groupName;
-		this.students = students;
-		this.teacherReference = teacherReference;
-		this.courseReference = courseReference;
-		this.isActive = isActive;
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((courseReference == null) ? 0 : courseReference.hashCode());
+		result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
+		result = prime * result + ((groupName == null) ? 0 : groupName.hashCode());
+		result = prime * result + (isActive ? 1231 : 1237);
+		result = prime * result + ((students == null) ? 0 : students.hashCode());
+		result = prime * result + ((teacherReference == null) ? 0 : teacherReference.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Group other = (Group) obj;
+		if (courseReference == null) {
+			if (other.courseReference != null)
+				return false;
+		} else if (!courseReference.equals(other.courseReference))
+			return false;
+		if (groupId == null) {
+			if (other.groupId != null)
+				return false;
+		} else if (!groupId.equals(other.groupId))
+			return false;
+		if (groupName == null) {
+			if (other.groupName != null)
+				return false;
+		} else if (!groupName.equals(other.groupName))
+			return false;
+		if (isActive != other.isActive)
+			return false;
+		if (students == null) {
+			if (other.students != null)
+				return false;
+		} else if (!students.equals(other.students))
+			return false;
+		if (teacherReference == null) {
+			if (other.teacherReference != null)
+				return false;
+		} else if (!teacherReference.equals(other.teacherReference))
+			return false;
+		return true;
 	}
 
 	@Override

@@ -26,7 +26,6 @@ public class TeacherController {
 
 	@PostMapping()
 	public Teacher addTeacherDetails(@RequestBody Teacher teacherDetails) throws ParseException {
-		teacherDetails.setTeacherId(UserAppService.generateNumber());
 		teacherDetails.setActive(true);
 		Teacher status = teacherAppService.addTeacher(teacherDetails);
 		return status;

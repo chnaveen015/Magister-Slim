@@ -2,6 +2,7 @@ package com.magister.slim.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -167,7 +168,7 @@ public class StudyGuide {
 	}
 
 	public StudyGuide() {
-
+		studyGuideId = UUID.randomUUID().toString();
 	}
 
 }

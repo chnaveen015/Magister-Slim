@@ -86,15 +86,22 @@ public class Teacher {
 		this.isActive = active;
 	}
 
-	public Teacher(String teacherid, User userReference, String name, String address, long phoneno,
+	public Teacher(User userReference, String name, String address, long phoneno,
 			List<GroupReference> groupReference, int age, String gender, boolean isActive) {
 		super();
-		this.teacherId = teacherid;
 		this.userReference = userReference;
 		this.name = name;
 		this.address = address;
 		this.phoneno = phoneno;
 		this.groupReference = groupReference;
+		this.age = age;
+		this.gender = gender;
+		this.isActive = isActive;
+	}
+	
+	public Teacher(String name, int age, String gender, boolean isActive) {
+		super();
+		this.name = name;
 		this.age = age;
 		this.gender = gender;
 		this.isActive = isActive;

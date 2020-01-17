@@ -44,6 +44,18 @@ dependencies {
 //compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.2.2.RELEASE'
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+	
+	// https://mvnrepository.com/artifact/junit/junit
+testCompile group: 'junit', name: 'junit', version: '4.13'
+// https://mvnrepository.com/artifact/org.mockito/mockito-core
+testCompile group: 'org.mockito', name: 'mockito-core', version: '2.28.2'
+// https://mvnrepository.com/artifact/org.mockito/mockito-inline
+testCompile group: 'org.mockito', name: 'mockito-inline', version: '3.1.0'
+
+
+
+	
     
     
 }

@@ -27,8 +27,6 @@ public class ResourceController {
 		return resourceAppService.addResource(resource, user);
 	}
 
-
-
 	@RequestMapping(value = "resource/{resourceId}", method = RequestMethod.DELETE)
 	public Resource deleteResourceDetails(@PathVariable("resourceId") String resourceId) {
 		return resourceAppService.deleteResource(resourceId);
@@ -38,8 +36,6 @@ public class ResourceController {
 	public Resource getResourceDetail(@PathVariable("resourceId") String resourceId) {
 		return resourceAppService.getResource(resourceId);
 	}
-
-
 
 	@RequestMapping(value = "resources", method = RequestMethod.GET)
 	public List<Resource> getResourceDetails(HttpServletRequest request) {

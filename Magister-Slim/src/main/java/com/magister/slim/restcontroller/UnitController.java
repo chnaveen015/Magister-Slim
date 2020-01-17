@@ -1,6 +1,6 @@
 package com.magister.slim.restcontroller;
 
-import java.text.ParseException; 
+import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,6 @@ public class UnitController {
 			unit.setThemeReference(themeReference);
 			unit.setActive(true);
 			Unit status = unitAppService.addUnit(unit);
-			System.out.println(status);
 			return status;
 		} else
 			return null;
@@ -75,7 +74,7 @@ public class UnitController {
 	public Resource addResource(@RequestBody Resource resource, @PathVariable("unitId") String unitId,
 			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId)
 			throws ParseException {
-		System.out.println(themeId+","+studyGuideId);
+		System.out.println(themeId + "," + studyGuideId);
 		System.out.println(unitId + "," + resource);
 		System.out.println("Hiii");
 		return unitAppService.addToUnit(unitId, resource);

@@ -10,6 +10,27 @@ public class StudyGuideReference {
 	private String themeId;
 	private String unitId;
 	private boolean isActive;
+	
+	public StudyGuideReference() {
+
+	}
+	
+	public StudyGuideReference(String studyGuideId, String studyGuideName, String themeId, String unitId,
+			boolean isActive) {
+		super();
+		this.studyGuideId = studyGuideId;
+		this.studyGuideName = studyGuideName;
+		this.themeId = themeId;
+		this.unitId = unitId;
+		this.isActive = isActive;
+	}
+	
+	public StudyGuideReference(String studyGuideId, String studyGuideName,boolean isActive) {
+		super();
+		this.studyGuideId = studyGuideId;
+		this.studyGuideName = studyGuideName;
+		this.isActive = isActive;
+	}
 
 	public boolean isActive() {
 		return isActive;
@@ -51,31 +72,12 @@ public class StudyGuideReference {
 		this.studyGuideName = studyGuideName;
 	}
 
-	public StudyGuideReference(String studyGuideId, String studyGuideName, String themeId, String unitId,
-			boolean isActive) {
-		super();
-		this.studyGuideId = studyGuideId;
-		this.studyGuideName = studyGuideName;
-		this.themeId = themeId;
-		this.unitId = unitId;
-		this.isActive = isActive;
-	}
-	
-	public StudyGuideReference(String studyGuideId, String studyGuideName,boolean isActive) {
-		super();
-		this.studyGuideId = studyGuideId;
-		this.studyGuideName = studyGuideName;
-		this.isActive = isActive;
-	}
-
 	@Override
 	public String toString() {
 		return "StudyGuideReference [studyGuideId=" + studyGuideId + ", studyGuideName=" + studyGuideName + ", themeId="
 				+ themeId + ", unitId=" + unitId + ", isActive=" + isActive + "]";
 	}
 
-	public StudyGuideReference() {
 
-	}
 
 }

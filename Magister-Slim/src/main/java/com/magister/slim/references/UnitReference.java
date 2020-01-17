@@ -5,6 +5,18 @@ public class UnitReference {
 	private String unitId;
 	private String unitName;
 	private boolean isActive;
+
+	public UnitReference() {
+
+	}
+
+	public UnitReference(String unitId, String unitName, boolean isActive) {
+		super();
+		this.unitId = unitId;
+		this.unitName = unitName;
+		this.isActive = isActive;
+	}
+
 	public String getUnitId() {
 		return unitId;
 	}
@@ -29,13 +41,4 @@ public class UnitReference {
 		this.isActive = isActive;
 	}
 
-	public UnitReference(String unitId, String unitName, boolean isActive) {
-		super();
-		this.unitId = unitId;
-		this.unitName = unitName;
-		this.isActive = isActive;
-	}
-	public UnitReference() {
-		
-	}
 }

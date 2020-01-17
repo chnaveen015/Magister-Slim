@@ -54,7 +54,7 @@ public class AssignmentController {
 		unitReference.setUnitName(unit.getUnitName());
 		assignment.setStudyGuideReference(studyGuideReference);
 		assignment.setUnitReference(unitReference);
-		Assignment status = assignmentAppService.addAssignment(assignment,unit);
+		Assignment status = assignmentAppService.addAssignment(assignment, unit);
 		return status;
 	}
 

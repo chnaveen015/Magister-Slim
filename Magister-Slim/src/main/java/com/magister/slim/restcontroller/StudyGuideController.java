@@ -18,6 +18,7 @@ import com.magister.slim.entity.User;
 import com.magister.slim.model.MagisterInterceptor;
 import com.magister.slim.service.StudyGuideAppService;
 import com.magister.slim.service.UserAppService;
+
 @RestController
 public class StudyGuideController {
 
@@ -26,14 +27,13 @@ public class StudyGuideController {
 	MagisterInterceptor magisterInterceptor;
 	UserAppService userAppService;
 
-	@RequestMapping(value="studyGuide",method = RequestMethod.POST)
-	public StudyGuide createStudyGuide(@RequestBody StudyGuide studyGuide,HttpServletRequest request) throws ParseException {
+	@RequestMapping(value = "studyGuide", method = RequestMethod.POST)
+	public StudyGuide createStudyGuide(@RequestBody StudyGuide studyGuide, HttpServletRequest request)
+			throws ParseException {
 		studyGuide.setStudyGuideId(UserAppService.generateNumber());
 		studyGuide.setActive(true);
-		User user= (User) request.getServletContext().getAttribute("user");
-		System.out.println(studyGuide);
-		System.out.println(user);
-		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide,user);
+		User user = (User) request.getServletContext().getAttribute("user");
+		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide, user);
 		return status;
 	}
 
@@ -45,26 +45,22 @@ public class StudyGuideController {
 	}
 
 	@RequestMapping(value = "studyGuide/{studyGuideId}", method = RequestMethod.PUT)
-	public StudyGuide updateStudyGuideDetails(@PathVariable("studyGuideId") String studyGuideId, @RequestBody StudyGuide studyGuide) {
-		StudyGuide status = studyGuideAppService.updateStudyGuide(studyGuide,studyGuideId);
+	public StudyGuide updateStudyGuideDetails(@PathVariable("studyGuideId") String studyGuideId,
+			@RequestBody StudyGuide studyGuide) {
+		StudyGuide status = studyGuideAppService.updateStudyGuide(studyGuide, studyGuideId);
 		return status;
 	}
 
-	@RequestMapping(value = "studyGuide/{studyGuideId}",method = RequestMethod.GET)
+	@RequestMapping(value = "studyGuide/{studyGuideId}", method = RequestMethod.GET)
 	public StudyGuide getStudyGuideDetail(@PathVariable("studyGuideId") String studyGuideId) {
 		StudyGuide studyGuide = studyGuideAppService.getStudyGuideById(studyGuideId);
 		return studyGuide;
 	}
 
-
-	@RequestMapping(value="studyGuides",method = RequestMethod.GET)
-	public List<StudyGuide> getStudyGuide(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		User user= (User) request.getServletContext().getAttribute("user");
-		//magisterInterceptor.preHandle(request, response, user);
+	@RequestMapping(value = "studyGuides", method = RequestMethod.GET)
+	public List<StudyGuide> getStudyGuide(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		User user = (User) request.getServletContext().getAttribute("user");
 		List<StudyGuide> studyGuide = studyGuideAppService.getStudyGuide(user);
 		return studyGuide;
 	}
 }
-
-
-

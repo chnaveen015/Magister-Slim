@@ -9,6 +9,18 @@ public class StudentReference {
 	private String name;
 	private boolean isActive;
 	
+	public StudentReference()
+	{
+		
+	}
+	
+	public StudentReference(String id, String name, boolean isActive) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.isActive = isActive;
+	}
+
 
 	public String getId() {
 		return id;
@@ -34,19 +46,10 @@ public class StudentReference {
 		this.isActive = isActive;
 	}
 
-	public StudentReference(String id, String name, boolean isActive) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.isActive = isActive;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "StudentReference [id=" + id + ", name=" + name + ", isActive=" + isActive + "]";
 	}
-	public StudentReference()
-	{
-		
-	}
+	
 }

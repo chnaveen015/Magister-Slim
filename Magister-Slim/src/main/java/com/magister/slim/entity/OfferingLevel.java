@@ -18,6 +18,19 @@ public class OfferingLevel {
 	private List<CourseReference> courseReferences;
 	private boolean isActive;
 
+	public OfferingLevel() {
+
+	}
+
+	public OfferingLevel( String offeringLevelName, OfferingReference offeringReference,
+			List<CourseReference> courseReferences, boolean isActive) {
+		super();
+		this.offeringLevelName = offeringLevelName;
+		this.offeringReference = offeringReference;
+		this.courseReferences = courseReferences;
+		this.isActive = isActive;
+	}
+	
 	public String getOfferingLevelId() {
 		return offeringLevelId;
 	}
@@ -50,10 +63,7 @@ public class OfferingLevel {
 		this.isActive = isActive;
 	}
 
-	public OfferingLevel() {
-
-	}
-
+	
 	public List<CourseReference> getCourseReferences() {
 		return courseReferences;
 	}
@@ -62,14 +72,52 @@ public class OfferingLevel {
 		this.courseReferences = courseReferences;
 	}
 
-	public OfferingLevel(String offeringLevelId, String offeringLevelName, OfferingReference offeringReference,
-			List<CourseReference> courseReferences, boolean isActive) {
-		super();
-		this.offeringLevelId = offeringLevelId;
-		this.offeringLevelName = offeringLevelName;
-		this.offeringReference = offeringReference;
-		this.courseReferences = courseReferences;
-		this.isActive = isActive;
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((courseReferences == null) ? 0 : courseReferences.hashCode());
+		result = prime * result + (isActive ? 1231 : 1237);
+		result = prime * result + ((offeringLevelId == null) ? 0 : offeringLevelId.hashCode());
+		result = prime * result + ((offeringLevelName == null) ? 0 : offeringLevelName.hashCode());
+		result = prime * result + ((offeringReference == null) ? 0 : offeringReference.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OfferingLevel other = (OfferingLevel) obj;
+		if (courseReferences == null) {
+			if (other.courseReferences != null)
+				return false;
+		} else if (!courseReferences.equals(other.courseReferences))
+			return false;
+		if (isActive != other.isActive)
+			return false;
+		if (offeringLevelId == null) {
+			if (other.offeringLevelId != null)
+				return false;
+		} else if (!offeringLevelId.equals(other.offeringLevelId))
+			return false;
+		if (offeringLevelName == null) {
+			if (other.offeringLevelName != null)
+				return false;
+		} else if (!offeringLevelName.equals(other.offeringLevelName))
+			return false;
+		if (offeringReference == null) {
+			if (other.offeringReference != null)
+				return false;
+		} else if (!offeringReference.equals(other.offeringReference))
+			return false;
+		return true;
 	}
 
 	@Override

@@ -19,7 +19,6 @@ public class MagisterInterceptorConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(magisterInterceptor).excludePathPatterns("");
 	}
-
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
@@ -27,7 +26,6 @@ public class MagisterInterceptorConfig implements WebMvcConfigurer {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "DELETE").allowedHeaders("*")
 						.allowedOrigins("http://localhost:4200");
-
 			}
 		};
 	}

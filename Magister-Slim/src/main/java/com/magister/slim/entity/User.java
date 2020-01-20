@@ -19,12 +19,20 @@ public class User {
 
 	}
 	
+	public User(String username, com.magister.slim.entity.User.role role,
+			boolean active) {
+		super();
+		this.username = username;
+		this.role = role;
+		this.active = active;
+	}
+
 	public User(String userid, String username, String password, com.magister.slim.entity.User.role role,
 			boolean active) {
 		super();
-		this.userid = userid;
+		this.userid=userid;
+		this.password=password;
 		this.username = username;
-		this.password = password;
 		this.role = role;
 		this.active = active;
 	}

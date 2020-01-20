@@ -25,7 +25,7 @@ public class AssignmentAppService {
 		List<Assignment> assignments = assignmentInterface.getAssignments(assignmentName);
 		List<Assignment> assignmentReferences = assignments.stream().map(assignmentReference -> {
 			if (assignmentReference.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)
-					&& assignmentReference.getUnitReference().getUnitId() .equals(unitId)) {
+					&& assignmentReference.getUnitReference().getUnitId().equals(unitId)) {
 				return assignmentReference;
 			} else
 				return null;
@@ -65,25 +65,23 @@ public class AssignmentAppService {
 		Assignment assignment0 = assignmentInterface.findById(assignment.getAssignmentId()).get();
 		if (assignment.getAssignmentName() != null) {
 			assignment0.setAssignmentName(assignment.getAssignmentName());
-			if(unitInterface.findById(assignment0.getUnitReference().getUnitId()).isPresent()) {
-			Unit unit = unitInterface.findById(assignment0.getUnitReference().getUnitId()).get();
-			List<AssignmentReference> assignmentReferences = unit.getAssignments().stream().map(unitReference -> {
-				if (unitReference.getAssignmentId().equals( assignment.getAssignmentId())) {
-					unitReference.setAssignmentName(assignment.getAssignmentName());
-				}
-				return unitReference;
-			}).collect(Collectors.toList());
-			unit.setAssignments(assignmentReferences);
-			unitInterface.save(unit);
+			if (unitInterface.findById(assignment0.getUnitReference().getUnitId()).isPresent()) {
+				Unit unit = unitInterface.findById(assignment0.getUnitReference().getUnitId()).get();
+				List<AssignmentReference> assignmentReferences = unit.getAssignments().stream().map(unitReference -> {
+					if (unitReference.getAssignmentId().equals(assignment.getAssignmentId())) {
+						unitReference.setAssignmentName(assignment.getAssignmentName());
+					}
+					return unitReference;
+				}).collect(Collectors.toList());
+				unit.setAssignments(assignmentReferences);
+				unitInterface.save(unit);
 			}
 		}
-		if(assignment.getValidOnwards()!=null)
-		{
+		if (assignment.getValidOnwards() != null) {
 			assignment0.setValidOnwards(assignment.getValidOnwards());
 			assignmentInterface.save(assignment0);
 		}
-		if(assignment.getValidUpto()!=null)
-		{
+		if (assignment.getValidUpto() != null) {
 			assignment0.setValidUpto(assignment.getValidUpto());
 			assignmentInterface.save(assignment0);
 		}

@@ -20,6 +20,7 @@ import com.magister.slim.repository.ThemeInterface;
 import com.magister.slim.repository.UnitInterface;
 import com.magister.slim.service.ThemeAppService;
 import com.magister.slim.service.UserAppService;
+
 @RestController
 @RequestMapping("studyGuide/{studyGuideId}")
 public class ThemeController {
@@ -36,11 +37,13 @@ public class ThemeController {
 	StudyGuideReference studyGuideReference = new StudyGuideReference();
 	StudyGuide studyGuide = new StudyGuide();
 
-	@RequestMapping(value = "/theme",method = RequestMethod.POST)
-	public Theme createTheme(@RequestBody Theme theme, @PathVariable("studyGuideId") String studyGuideId) throws ParseException {
+	@RequestMapping(value = "/theme", method = RequestMethod.POST)
+	public Theme createTheme(@RequestBody Theme theme, @PathVariable("studyGuideId") String studyGuideId)
+			throws ParseException {
 		studyGuideReference.setStudyGuideId(studyGuideId);
-		List<StudyGuide> studyGuideList=studyGuideInterface.findAll();
-		StudyGuide studyGuide=studyGuideList.stream().filter(oneTheme-> oneTheme.getStudyGuideId().equals(studyGuideId)).findFirst().get();
+		List<StudyGuide> studyGuideList = studyGuideInterface.findAll();
+		StudyGuide studyGuide = studyGuideList.stream()
+				.filter(oneTheme -> oneTheme.getStudyGuideId().equals(studyGuideId)).findFirst().get();
 		if (studyGuide.isActive()) {
 			studyGuideReference.setStudyGuideName(studyGuide.getStudyGuideName());
 			studyGuideReference.setActive(studyGuide.isActive());
@@ -68,8 +71,9 @@ public class ThemeController {
 			theme.setUnits(unitReferences);
 		}
 		studyGuide = studyGuideInterface.findById(studyGuideId).get();
-		studyGuide.getThemes().stream().filter((studyGuideReference) -> studyGuideReference.getThemeId().equals(themeId))
-				.findAny().get().setThemeName(themeName);
+		studyGuide.getThemes().stream()
+				.filter((studyGuideReference) -> studyGuideReference.getThemeId().equals(themeId)).findAny().get()
+				.setThemeName(themeName);
 		theme.setThemeName(themeName);
 		return themeAppService.updateTheme(theme, studyGuide);
 	}
@@ -81,13 +85,15 @@ public class ThemeController {
 	}
 
 	@RequestMapping(value = "/theme/{themeId}", method = RequestMethod.GET)
-	public Theme getThemeDetail(@PathVariable("themeId") String themeId, @PathVariable("studyGuideId") String studyGuideId) {
+	public Theme getThemeDetail(@PathVariable("themeId") String themeId,
+			@PathVariable("studyGuideId") String studyGuideId) {
 		return themeAppService.getTheme(themeId, studyGuideId);
 
 	}
 
-	@RequestMapping(value = "/themes",method = RequestMethod.GET)
-	public List<Theme> getThemeDetails(@RequestParam String themeName, @PathVariable("studyGuideId") String studyGuideId) {
+	@RequestMapping(value = "/themes", method = RequestMethod.GET)
+	public List<Theme> getThemeDetails(@RequestParam String themeName,
+			@PathVariable("studyGuideId") String studyGuideId) {
 		return themeAppService.getThemes(themeName, studyGuideId);
 	}
 

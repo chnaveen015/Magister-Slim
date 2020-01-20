@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.magister.slim.entity.Teacher;
 import com.magister.slim.entity.User;
+import com.magister.slim.entity.User.role;
 import com.magister.slim.repository.UserInterface;
 
 @Service
@@ -33,6 +34,7 @@ public class UserAppService {
 		User user = userInterface.findById(userid).get();
 		return user;
 	}
+
 	public static String generatePassword() {
 		int n = 9;
 		String x;
@@ -53,25 +55,22 @@ public class UserAppService {
 	}
 
 	public User addUserDetails(User user) {
-		// TODO Auto-generated method stub
-		
+
 		return null;
 	}
-	
+
 	public static String generateNumber() throws ParseException {
 		Calendar calendar = Calendar.getInstance();
-		System.out.println("Calender - Time in milliseconds : " + calendar.getTimeInMillis());
 		return Long.toString(calendar.getTimeInMillis());
-	  }
+	}
 
 	public boolean addUser(Teacher teacher) {
-		// TODO Auto-generated method stub
-		User user=new User(teacher.getTeacherId(),teacher.getName(),generatePassword(),new User().getRole().teacher,true);
-		if(userInterface.save(user)!=null)
+		User user = new User(teacher.getTeacherId(), teacher.getName(), generatePassword(), role.teacher, true);
+		if (userInterface.save(user) != null)
 			return true;
-		else return false;
-		
+		else
+			return false;
+
 	}
-	
 
 }

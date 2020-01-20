@@ -8,6 +8,19 @@ public class ResourceReference {
 	private String resourceId;
 	private String resourceType;
 	private String resourceName;
+	
+	public ResourceReference()
+	{
+		
+	}
+
+	public ResourceReference(String resourceId, String resourceType, String resourceName) {
+		super();
+		this.resourceId = resourceId;
+		this.resourceType = resourceType;
+		this.resourceName = resourceName;
+	}
+
 
 	public String getResourceId() {
 		return resourceId;
@@ -32,16 +45,5 @@ public class ResourceReference {
 	public void setResourceName(String resourceName) {
 		this.resourceName = resourceName;
 	}
-	public ResourceReference()
-	{
-		
-	}
-
-	public ResourceReference(String resourceId, String resourceType, String resourceName) {
-		super();
-		this.resourceId = resourceId;
-		this.resourceType = resourceType;
-		this.resourceName = resourceName;
-	}
-
+	
 }

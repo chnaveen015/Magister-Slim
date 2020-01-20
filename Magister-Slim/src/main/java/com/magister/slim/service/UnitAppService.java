@@ -87,7 +87,7 @@ public class UnitAppService {
 		}
 		studyGuideReferences = new ArrayList<>();
 		studyGuideReferences.add(new StudyGuideReference(unit.getStudyGuideReference().getStudyGuideId(),
-				unit.getStudyGuideReference().getStudyGuideName(),unit.getThemeReference().getThemeId(),
+				unit.getStudyGuideReference().getStudyGuideName(), unit.getThemeReference().getThemeId(),
 				unit.getUnitId(), unit.getStudyGuideReference().isActive()));
 		resource.setStudyGuideReference(studyGuideReferences);
 		resourceInterface.save(resource);

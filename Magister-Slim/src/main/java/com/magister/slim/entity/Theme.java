@@ -20,6 +20,22 @@ public class Theme {
 	private List<UnitReference> units;
 	private boolean isActive;
 
+	public Theme() {
+
+	}
+	
+	public Theme( String themeName, String themeDescription, String themeGoal,
+			StudyGuideReference studyGuideReference, List<UnitReference> units, boolean isActive) {
+		super();
+		this.themeName = themeName;
+		this.themeDescription = themeDescription;
+		this.themeGoal = themeGoal;
+		this.studyGuideReference = studyGuideReference;
+		this.units = units;
+		this.isActive = isActive;
+	}
+
+	
 	public String getThemeId() {
 		return themeId;
 	}
@@ -35,7 +51,7 @@ public class Theme {
 	public void setThemeName(String themeName) {
 		this.themeName = themeName;
 	}
-	
+
 	public String getThemeDescription() {
 		return themeDescription;
 	}
@@ -83,20 +99,6 @@ public class Theme {
 				+ ", isActive=" + isActive + "]";
 	}
 
-	public Theme(String themeId, String themeName, String themeDescription, String themeGoal,
-			StudyGuideReference studyGuideReference, List<UnitReference> units, boolean isActive) {
-		super();
-		this.themeId = themeId;
-		this.themeName = themeName;
-		this.themeDescription = themeDescription;
-		this.themeGoal = themeGoal;
-		this.studyGuideReference = studyGuideReference;
-		this.units = units;
-		this.isActive = isActive;
-	}
 
-	public Theme()
-	{
-		
-	}
+	
 }

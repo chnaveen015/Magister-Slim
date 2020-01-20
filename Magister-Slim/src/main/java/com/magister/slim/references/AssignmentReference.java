@@ -22,17 +22,17 @@ public class AssignmentReference {
 		this.assignmentName = assignmentName;
 	}
 
-	@Override
-	public String toString() {
-		return "AssignmentReference [assignmentId=" + assignmentId + ", assignmentName=" + assignmentName + "]";
-	}
-
 	public boolean isActive() {
 		return isActive;
 	}
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+	
+	@Override
+	public String toString() {
+		return "AssignmentReference [assignmentId=" + assignmentId + ", assignmentName=" + assignmentName + "]";
 	}
 
 }

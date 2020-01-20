@@ -8,6 +8,19 @@ public class TeacherReference {
 	private String teacherid;
 	private String name;
 	private boolean isActive;
+	
+	public TeacherReference()
+	{
+		
+	}
+	
+	public TeacherReference(String teacherid, String name, boolean isActive) {
+		super();
+		this.teacherid = teacherid;
+		this.name = name;
+		this.isActive = isActive;
+	}
+	
 	public String getTeacherid() {
 		return teacherid;
 	}
@@ -26,18 +39,10 @@ public class TeacherReference {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public TeacherReference(String teacherid, String name, boolean isActive) {
-		super();
-		this.teacherid = teacherid;
-		this.name = name;
-		this.isActive = isActive;
-	}
+	
 	@Override
 	public String toString() {
 		return "TeacherReference [teacherid=" + teacherid + ", name=" + name + ", isActive=" + isActive + "]";
 	}
-	public TeacherReference()
-	{
-		
-	}
+
 }

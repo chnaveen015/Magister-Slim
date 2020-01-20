@@ -8,6 +8,17 @@ public class OfferingLevelReference {
 	private String offeringLevelId;
 	private String offeringLevelName;
 	private boolean isActive;
+	
+	public OfferingLevelReference() {
+
+	}
+
+	public OfferingLevelReference(String offeringLevelId, String offeringLevelName, boolean isActive) {
+		super();
+		this.offeringLevelId = offeringLevelId;
+		this.offeringLevelName = offeringLevelName;
+		this.isActive = isActive;
+	}
 
 	public String getOfferingLevelName() {
 		return offeringLevelName;
@@ -31,12 +42,7 @@ public class OfferingLevelReference {
 				+ ", isActive=" + isActive + "]";
 	}
 
-	public OfferingLevelReference(String offeringLevelId, String offeringLevelName, boolean isActive) {
-		super();
-		this.offeringLevelId = offeringLevelId;
-		this.offeringLevelName = offeringLevelName;
-		this.isActive = isActive;
-	}
+	
 
 	public String getOfferingLevelId() {
 		return offeringLevelId;
@@ -46,8 +52,5 @@ public class OfferingLevelReference {
 		this.offeringLevelId = offeringLevelId;
 	}
 
-	public OfferingLevelReference() {
-
-	}
-
+	
 }

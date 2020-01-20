@@ -19,6 +19,21 @@ public class Resource {
 	private TeacherReference createdBy;
 	private boolean isActive;
 
+	public Resource() {
+
+	}
+	
+	public Resource(String resourceType, String resourceName,
+			List<StudyGuideReference> studyGuideReferences, TeacherReference createdBy, boolean isActive) {
+		super();
+		this.resourceType = resourceType;
+		this.resourceName = resourceName;
+		this.studyGuideReferences = studyGuideReferences;
+		this.createdBy = createdBy;
+		this.isActive = isActive;
+	}
+
+	
 	public String getResourceId() {
 		return resourceId;
 	}
@@ -74,19 +89,6 @@ public class Resource {
 				+ ", isActive=" + isActive + "]";
 	}
 
-	public Resource(String resourceId, String resourceType, String resourceName,
-			List<StudyGuideReference> studyGuideReferences, TeacherReference createdBy, boolean isActive) {
-		super();
-		this.resourceId = resourceId;
-		this.resourceType = resourceType;
-		this.resourceName = resourceName;
-		this.studyGuideReferences = studyGuideReferences;
-		this.createdBy = createdBy;
-		this.isActive = isActive;
-	}
-
-	public Resource()
-	{
-		
-	}
+	
+	
 }

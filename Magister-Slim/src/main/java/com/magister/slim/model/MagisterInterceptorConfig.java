@@ -11,26 +11,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Component
 @Configuration
 public class MagisterInterceptorConfig implements WebMvcConfigurer {
-	
+
 	@Autowired
 	MagisterInterceptor magisterInterceptor;
-	
+
 	@Override
-	   public void addInterceptors(InterceptorRegistry registry) {
-	      registry.addInterceptor(magisterInterceptor).excludePathPatterns("");
-	   }
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(magisterInterceptor).excludePathPatterns("");
+	}
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
-	   return new WebMvcConfigurer() {
-	      @Override
-	      public void addCorsMappings(CorsRegistry registry) {
-	         registry.addMapping("/**")
-	         .allowedMethods("GET","PUT","POST","DELETE")
-	         .allowedHeaders("*")
-	         .allowedOrigins("http://localhost:4200");
-	  
-	      }    
-	   };
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "DELETE").allowedHeaders("*")
+						.allowedOrigins("http://localhost:4200");
+			}
+		};
 	}
-	
+
 }

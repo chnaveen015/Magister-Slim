@@ -28,13 +28,14 @@ public class UserController {
 
 	@PostMapping("")
 	public void createUser(@RequestBody() User user) {
-		 userAppService.addUserDetails(user);
+		userAppService.addUserDetails(user);
 	}
 
 	@DeleteMapping("{userId}")
 	public void DeleteUserDetails(@RequestParam("userId") String userId) {
 
 	}
+
 	@PutMapping("{userId}")
 	public void updateCourseDetails(@RequestParam("userId") String userId, @RequestBody() User user) {
 	}

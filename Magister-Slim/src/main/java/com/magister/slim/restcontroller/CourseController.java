@@ -31,46 +31,49 @@ public class CourseController {
 	UserAppService userAppService;
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public Course addCourse(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@RequestBody Course courseDetails) throws ParseException {
+	public Course addCourse(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @RequestBody Course courseDetails)
+			throws ParseException {
 		courseDetails.setActive(true);
 		courseDetails.setCourseId(UserAppService.generateNumber());
-		OfferingLevelReference offeringLevelReference=offeringLevelAppService.getOfferingLevelReference(offeringId,offeringLevelId);
-		if(offeringLevelReference!=null)
-		{
+		OfferingLevelReference offeringLevelReference = offeringLevelAppService.getOfferingLevelReference(offeringId,
+				offeringLevelId);
+		if (offeringLevelReference != null) {
 			courseDetails.setOfferingLevelReference(offeringLevelReference);
-			Course status=courseAppService.addCourseDetails(courseDetails);
-		return status;
+			Course status = courseAppService.addCourseDetails(courseDetails);
+			return status;
 		}
 		return null;
 	}
 
-
 	@RequestMapping(value = "/{courseId}", method = RequestMethod.DELETE)
-	public Course removeCourse(@PathVariable("offeringId")String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId) {
-		Course status=courseAppService.deleteCourse(offeringLevelId,courseId);
+	public Course removeCourse(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId) {
+		Course status = courseAppService.deleteCourse(offeringLevelId, courseId);
 		return status;
 	}
-	
 
 	@RequestMapping(value = "{courseId}", method = RequestMethod.PUT)
-	public Course updateCourseDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId,@RequestBody Course course) {
+	public Course updateCourseDetails(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId,
+			@RequestBody Course course) {
 		course.setCourseId(courseId);
 		course.setOfferingLevelReference(new OfferingLevelReference());
 		course.getOfferingLevelReference().setOfferingLevelId(offeringLevelId);
-		Course status=courseAppService.updateCourseDetails(offeringLevelId,course);
+		Course status = courseAppService.updateCourseDetails(offeringLevelId, course);
 		return status;
 	}
-	
+
 	@RequestMapping(value = "{courseId}", method = RequestMethod.GET)
-	public Course getCourseDetails(@PathVariable("offeringId") String offeringId,@PathVariable("offeringLevelId") String offeringLevelId,@PathVariable("courseId")String courseId) {
-		Course coureDetails=courseAppService.getCourseDetailsById(offeringLevelId,courseId);
+	public Course getCourseDetails(@PathVariable("offeringId") String offeringId,
+			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId) {
+		Course coureDetails = courseAppService.getCourseDetailsById(offeringLevelId, courseId);
 		return coureDetails;
 
 	}
 
 	@GetMapping()
-	public List<Course> getAllCourses()
-	{
-	return courseAppService.getCourses();
+	public List<Course> getAllCourses() {
+		return courseAppService.getCourses();
 	}
 }

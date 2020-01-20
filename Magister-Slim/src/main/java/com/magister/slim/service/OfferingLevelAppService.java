@@ -8,14 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.magister.slim.entity.Course;
-import com.magister.slim.entity.Group;
 import com.magister.slim.entity.Offering;
 import com.magister.slim.entity.OfferingLevel;
 import com.magister.slim.references.CourseReference;
-import com.magister.slim.references.GroupReference;
 import com.magister.slim.references.OfferingLevelReference;
 import com.magister.slim.repository.GroupInterface;
-import com.magister.slim.repository.OfferingInterface;
 import com.magister.slim.repository.OfferingLevelInterface;
 
 @Service
@@ -49,8 +46,8 @@ public class OfferingLevelAppService {
 		OfferingLevel offeringLevel = offeringLevelInterface.findById(offeringLevelId).get();
 		offeringLevel.setActive(false);
 		offeringLevelInterface.save(offeringLevel);
-		boolean status = offeringAppService.deleteOfferingLevelReference(offeringId, offeringLevelId);
-		boolean status1 = courseAppService.deleteOfferingLevelreference(offeringLevelId);
+		offeringAppService.deleteOfferingLevelReference(offeringId, offeringLevelId);
+		courseAppService.deleteOfferingLevelreference(offeringLevelId);
 		return offeringLevel;
 	}
 
@@ -58,7 +55,7 @@ public class OfferingLevelAppService {
 		OfferingLevel offeringLevelDetails = offeringLevelInterface.findById(offeringLevel.getOfferingLevelId()).get();
 		offeringLevelDetails.setOfferingLevelName(offeringLevel.getOfferingLevelName());
 		offeringLevelInterface.save(offeringLevelDetails);
-		boolean status = offeringAppService.updateOfferingLevelReferenceDetails(offeringLevel);
+		offeringAppService.updateOfferingLevelReferenceDetails(offeringLevel);
 		return offeringLevel;
 	}
 

@@ -1,7 +1,7 @@
 package com.magister.slim.restcontroller;
 
 import java.text.ParseException;
-import java.util.List; 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,34 +30,29 @@ public class OfferingController {
 		return status;
 	}
 
-	@RequestMapping(value="/offering/{offeringId}",method = RequestMethod.DELETE)
+	@RequestMapping(value = "/offering/{offeringId}", method = RequestMethod.DELETE)
 	public Offering deleteOfferingDetails(@PathVariable("offeringId") String offeringId) {
-		 return offeringAppService.deleteOffering(offeringId);
-		
+		return offeringAppService.deleteOffering(offeringId);
+
 	}
-	
-	@RequestMapping(value="/offering/{offeringId}",method = RequestMethod.PUT)
-	public Offering updateOfferingDetails(@PathVariable("offeringId") String offeringId,@RequestBody Offering offering) {
+
+	@RequestMapping(value = "/offering/{offeringId}", method = RequestMethod.PUT)
+	public Offering updateOfferingDetails(@PathVariable("offeringId") String offeringId,
+			@RequestBody Offering offering) {
 		offering.setOfferingId(offeringId);
 		Offering status = offeringAppService.updateOfferingName(offering);
 		return status;
 	}
-	@RequestMapping(value="/offering/{offeringId}",method = RequestMethod.GET)
+
+	@RequestMapping(value = "/offering/{offeringId}", method = RequestMethod.GET)
 	public Offering getOfferingDetail(@PathVariable("offeringId") String offeringId) {
 		Offering offering = offeringAppService.getOfferingById(offeringId);
 		return offering;
 
 	}
 
-//	@RequestMapping(method = RequestMethod.GET)
-//	public List<Offering> getOfferingDetails(@RequestParam String offeringName) {
-//		List<Offering> offerings = offeringAppService.getOfferings(offeringName);
-//		return offerings;
-//
-//	}
 	@GetMapping(value = "offerings")
-	public List<Offering>getOfferingList()
-	{
+	public List<Offering> getOfferingList() {
 		return offeringAppService.getOfferings();
 	}
 }

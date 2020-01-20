@@ -19,28 +19,22 @@ public class StudentController {
 	@RequestMapping(method = RequestMethod.POST)
 	public Student addStudent(@RequestBody Student studentDetails) {
 		studentDetails.setActive(true);
-	//	studentDetails.setUserReference(studentDetails.getid());
+
 		studentAppService.addStudentDetails(studentDetails);
 		return null;
 	}
 
-	@RequestMapping(path="{studentId}",method = RequestMethod.DELETE)
+	@RequestMapping(path = "{studentId}", method = RequestMethod.DELETE)
 	public Student deleteStudentDetails(@RequestParam("studentId") String studenId) {
-		//Student status = studentAppService.deleteStudent(student);
+
 		return null;
 	}
 
-	@RequestMapping(path="{studentId}",method = RequestMethod.PUT)
-	public Student updateStudentDetails(@RequestParam("studentId") String studentId,@RequestBody Student student) {
-	//	Student status = studentAppService.addStudent(student);
+	@RequestMapping(path = "{studentId}", method = RequestMethod.PUT)
+	public Student updateStudentDetails(@RequestParam("studentId") String studentId, @RequestBody Student student) {
+		// Student status = studentAppService.addStudent(student);
 		return null;
 	}
-
-//	@RequestMapping(method = RequestMethod.GET)
-//	public List<Student> get(@RequestParam String studentName) {
-//		List<Student> students = studentAppService.getStudents(studentName);
-//		return students;
-//	}
 
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
 	public Student getStudentDetails(@RequestParam String studentid) {

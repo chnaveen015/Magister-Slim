@@ -9,7 +9,18 @@ public class CourseReference {
 	private String courseName;
 	private boolean isActive;
 	
-
+	public CourseReference()
+	{
+		
+	}
+	
+	public CourseReference(String courseId, String courseName, boolean isActive) {
+		super();
+		this.courseId = courseId;
+		this.courseName = courseName;
+		this.isActive = isActive;
+	}
+	
 	public String getCourseId() {
 		return courseId;
 	}
@@ -27,17 +38,7 @@ public class CourseReference {
 	}
 
 	
-	@Override
-	public String toString() {
-		return "CourseReference [courseId=" + courseId + ", courseName=" + courseName + ", isActive=" + isActive + "]";
-	}
-
-	public CourseReference(String courseId, String courseName, boolean isActive) {
-		super();
-		this.courseId = courseId;
-		this.courseName = courseName;
-		this.isActive = isActive;
-	}
+	
 
 	public boolean isActive() {
 		return isActive;
@@ -47,9 +48,12 @@ public class CourseReference {
 		this.isActive = isActive;
 	}
 
-	public CourseReference()
-	{
-		
+	
+
+	@Override
+	public String toString() {
+		return "CourseReference [courseId=" + courseId + ", courseName=" + courseName + ", isActive=" + isActive + "]";
 	}
+
 
 }

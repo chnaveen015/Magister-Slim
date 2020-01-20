@@ -37,6 +37,14 @@ public class Student {
 	}
 
 
+	public Student(User userReference, String name, String gender, int phoneno, boolean active) {
+		this.name = name;
+		this.userReference = userReference;
+		this.gender = gender;
+		this.phoneno = phoneno;
+		this.active = active;
+	}
+
 	public String getId() {
 		return id;
 	}

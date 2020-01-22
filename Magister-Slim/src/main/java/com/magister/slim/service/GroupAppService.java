@@ -141,7 +141,6 @@ public class GroupAppService {
 			return true;
 		}
 		return false;
-
 	}
 
 	public boolean updateTeacherReferenceDetails(Teacher teacherDetails) {

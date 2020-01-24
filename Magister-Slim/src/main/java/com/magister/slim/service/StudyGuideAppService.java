@@ -56,7 +56,7 @@ public class StudyGuideAppService {
 		}
 		return null;
 	}
-
+	
 	public String deleteStudyGuide(String studyGuideId) {
 		StudyGuide studyGuide = studyGuideInterface.findById(studyGuideId).get();
 		studyGuide.setActive(false);

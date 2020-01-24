@@ -18,7 +18,6 @@ import com.magister.slim.service.OfferingLevelAppService;
 import com.magister.slim.service.UserAppService;
 
 @RestController
-@RequestMapping("offering/{offeringId}/offering-level/{offeringLevelId}/course")
 public class CourseController {
 
 	@Autowired
@@ -30,7 +29,7 @@ public class CourseController {
 	@Autowired
 	UserAppService userAppService;
 
-	@RequestMapping(value = "", method = RequestMethod.POST)
+	@RequestMapping(value = "offering/{offeringId}/offering-level/{offeringLevelId}/course", method = RequestMethod.POST)
 	public Course addCourse(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId, @RequestBody Course courseDetails)
 			throws ParseException {
@@ -46,14 +45,14 @@ public class CourseController {
 		return null;
 	}
 
-	@RequestMapping(value = "/{courseId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "offering/{offeringId}/offering-level/{offeringLevelId}/course/{courseId}", method = RequestMethod.DELETE)
 	public Course removeCourse(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId) {
 		Course status = courseAppService.deleteCourse(offeringLevelId, courseId);
 		return status;
 	}
 
-	@RequestMapping(value = "{courseId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "offering/{offeringId}/offering-level/{offeringLevelId}/course/{courseId}", method = RequestMethod.PUT)
 	public Course updateCourseDetails(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId,
 			@RequestBody Course course) {
@@ -64,7 +63,7 @@ public class CourseController {
 		return status;
 	}
 
-	@RequestMapping(value = "{courseId}", method = RequestMethod.GET)
+	@RequestMapping(value = "offering/{offeringId}/offering-level/{offeringLevelId}/course/{courseId}", method = RequestMethod.GET)
 	public Course getCourseDetails(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId, @PathVariable("courseId") String courseId) {
 		Course coureDetails = courseAppService.getCourseDetailsById(offeringLevelId, courseId);
@@ -72,7 +71,7 @@ public class CourseController {
 
 	}
 
-	@GetMapping()
+	@GetMapping(value="courses")
 	public List<Course> getAllCourses() {
 		return courseAppService.getCourses();
 	}

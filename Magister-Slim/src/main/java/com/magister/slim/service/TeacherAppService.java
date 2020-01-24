@@ -1,5 +1,6 @@
 package com.magister.slim.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +27,11 @@ public class TeacherAppService {
 		return teachers;
 	}
 
-	public Teacher addTeacher(Teacher teacher) {
-		if (userAppService.addUser(teacher))
-			return teacherInterface.save(teacher);
-		else
-			return null;
-
+	public Teacher addTeacher(Teacher teacher) throws ParseException {
+		teacher.setTeacherId(UserAppService.generateNumber());
+		teacher.setActive(true);
+		teacher.setUserReference(userAppService.addUser(teacher));
+		return teacherInterface.save(teacher);
 	}
 
 	public Teacher getTeacher(String teacherid) {

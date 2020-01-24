@@ -1,4 +1,3 @@
-
 package com.magister.slim.restcontroller;
 
 import java.text.ParseException;
@@ -25,6 +24,7 @@ public class StudyGuideController {
 	@Autowired
 	StudyGuideAppService studyGuideAppService;
 	MagisterInterceptor magisterInterceptor;
+	@Autowired
 	UserAppService userAppService;
 
 	@RequestMapping(value = "studyGuide", method = RequestMethod.POST)
@@ -32,7 +32,7 @@ public class StudyGuideController {
 			throws ParseException {
 		studyGuide.setStudyGuideId(UserAppService.generateNumber());
 		studyGuide.setActive(true);
-		User user = (User) request.getServletContext().getAttribute("user");
+		User user =(User) request.getServletContext().getAttribute("user");
 		StudyGuide status = studyGuideAppService.addStudyGuide(studyGuide, user);
 		return status;
 	}

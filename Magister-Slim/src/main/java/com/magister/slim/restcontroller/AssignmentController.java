@@ -1,17 +1,21 @@
 package com.magister.slim.restcontroller;
 
+import java.text.ParseException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.magister.slim.entity.Assignment;
 import com.magister.slim.entity.StudyGuide;
 import com.magister.slim.entity.Theme;
 import com.magister.slim.entity.Unit;
+import com.magister.slim.entity.User;
 import com.magister.slim.references.StudyGuideReference;
 import com.magister.slim.references.ThemeReference;
 import com.magister.slim.references.UnitReference;
@@ -40,7 +44,7 @@ public class AssignmentController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public Assignment createAssignment(@RequestBody Assignment assignment, @PathVariable("unitId") String unitId,
-			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId) {
+			@PathVariable("studyGuideId") String studyGuideId, @PathVariable("themeId") String themeId,HttpServletRequest request) throws ParseException {
 		assignment.setActive(true);
 		studyGuide = studyGuideInterface.findById(studyGuideId).get();
 		StudyGuideReference studyGuideReference = new StudyGuideReference();
@@ -54,7 +58,8 @@ public class AssignmentController {
 		unitReference.setUnitName(unit.getUnitName());
 		assignment.setStudyGuideReference(studyGuideReference);
 		assignment.setUnitReference(unitReference);
-		Assignment status = assignmentAppService.addAssignment(assignment, unit);
+		User user =(User) request.getServletContext().getAttribute("user");
+		Assignment status = assignmentAppService.addAssignment(assignment, unit,user);
 		return status;
 	}
 
@@ -83,11 +88,18 @@ public class AssignmentController {
 
 	}
 
+//	@RequestMapping(method = RequestMethod.GET)
+//	public List<Assignment> getAssignmentDetails(@PathVariable("studyGuideId") String studyGuideId,
+//			@PathVariable("themeId") String themeId, @PathVariable("unitId") String unitId,
+//			@RequestParam String assignmentName) {
+//		List<Assignment> assignments = assignmentAppService.getAssignments(assignmentName, studyGuideId, unitId);
+//		return assignments;
+//	}
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Assignment> getAssignmentDetails(@PathVariable("studyGuideId") String studyGuideId,
-			@PathVariable("themeId") String themeId, @PathVariable("unitId") String unitId,
-			@RequestParam String assignmentName) {
-		List<Assignment> assignments = assignmentAppService.getAssignments(assignmentName, studyGuideId, unitId);
+			@PathVariable("themeId") String themeId, @PathVariable("unitId") String unitId) {
+		List<Assignment> assignments = assignmentAppService.getAssignments(studyGuideId, unitId);
 		return assignments;
 	}
 }

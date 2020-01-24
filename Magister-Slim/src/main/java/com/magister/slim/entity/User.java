@@ -27,6 +27,15 @@ public class User {
 		this.active = active;
 	}
 
+	public User(String userid, String username, com.magister.slim.entity.User.role role,
+			boolean active) {
+		super();
+		this.userid=userid;
+		this.username = username;
+		this.role = role;
+		this.active = active;
+	}
+
 	public User(String userid, String username, String password, com.magister.slim.entity.User.role role,
 			boolean active) {
 		super();
@@ -130,7 +139,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userid=" + userid + ", username=" + username + ", password=" + password + ", active=" + active
+		return "User [userid=" + userid + ", username=" + username + ", active=" + active
 				+ "]";
 	}
 

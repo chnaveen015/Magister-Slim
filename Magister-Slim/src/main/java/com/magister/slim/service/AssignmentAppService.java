@@ -1,5 +1,6 @@
 package com.magister.slim.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magister.slim.entity.Assignment;
 import com.magister.slim.entity.Unit;
+import com.magister.slim.entity.User;
 import com.magister.slim.references.AssignmentReference;
+import com.magister.slim.references.TeacherReference;
 import com.magister.slim.repository.AssignmentInterface;
 import com.magister.slim.repository.UnitInterface;
 
@@ -21,8 +24,9 @@ public class AssignmentAppService {
 	@Autowired
 	UnitInterface unitInterface;
 
-	public List<Assignment> getAssignments(String assignmentName, String studyGuideId, String unitId) {
-		List<Assignment> assignments = assignmentInterface.getAssignments(assignmentName);
+	public List<Assignment> getAssignments(String studyGuideId, String unitId) {
+		List<Assignment> assignments = assignmentInterface.findAll();
+		System.out.println(assignments);
 		List<Assignment> assignmentReferences = assignments.stream().map(assignmentReference -> {
 			if (assignmentReference.getStudyGuideReference().getStudyGuideId().equals(studyGuideId)
 					&& assignmentReference.getUnitReference().getUnitId().equals(unitId)) {
@@ -30,6 +34,7 @@ public class AssignmentAppService {
 			} else
 				return null;
 		}).collect(Collectors.toList());
+		System.out.println(assignmentReferences);
 		return assignmentReferences;
 	}
 
@@ -41,7 +46,10 @@ public class AssignmentAppService {
 		return assignmentId;
 	}
 
-	public Assignment addAssignment(Assignment assignment, Unit unit) {
+	public Assignment addAssignment(Assignment assignment, Unit unit,User user) throws ParseException {
+		assignment.setAssignmentId(UserAppService.generateNumber());
+		TeacherReference createdBy=new TeacherReference(user.getUserid(),user.getUsername(),true);
+		assignment.setCreatedBy(createdBy);
 		assignmentInterface.save(assignment);
 		unit.setAssignments(assignmentDetails(assignment.getAssignmentId(), assignment.getAssignmentName(), unit));
 		unitInterface.save(unit);

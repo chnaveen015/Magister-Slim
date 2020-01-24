@@ -1,11 +1,13 @@
 package com.magister.slim.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.magister.slim.entity.Student;
 import com.magister.slim.repository.StudentInterface;
+import com.magister.slim.restcontroller.UserController;
 
 @Service
 public class StudentAppService {
@@ -14,9 +16,12 @@ public class StudentAppService {
 	StudentInterface studentInterface;
 	@Autowired
 	UserAppService userAppService;
+	@Autowired
+	UserController userController;
 
-	public Student deleteStudent(Student student) {
-		studentInterface.deleteById(student.getId());
+	public Student deleteStudent(String studenId) {
+		Student student=studentInterface.findById(studenId).get();
+		System.out.println(student);
 		return student;
 	}
 
@@ -30,7 +35,10 @@ public class StudentAppService {
 		return student;
 	}
 
-	public Student addStudentDetails(Student studentDetails) {
+	public Student addStudentDetails(Student studentDetails) throws ParseException {
+		studentDetails.setId(UserAppService.generateNumber());
+		studentDetails.setActive(true);
+		studentDetails.setUserReference(userAppService.addUser(studentDetails));
 		return studentInterface.save(studentDetails);
 	}
 }

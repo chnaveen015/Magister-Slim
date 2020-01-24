@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.magister.slim.entity.Course;
 import com.magister.slim.entity.Group;
 import com.magister.slim.entity.Teacher;
+import com.magister.slim.entity.User;
 import com.magister.slim.references.GroupReference;
 import com.magister.slim.references.StudentReference;
 import com.magister.slim.references.StudyGuideReference;
@@ -57,7 +58,7 @@ public class GroupAppService {
 		return group;
 	}
 
-	public Group addGroupDetails(Group groupDetails) {
+	public Group addGroupDetails(Group groupDetails,User user) {
 		if (groupInterface.save(groupDetails) != null) {
 			teacherAppService.updateGroupReferences(groupDetails);
 			courseAppService.updateGroupReferences(groupDetails);
@@ -141,7 +142,6 @@ public class GroupAppService {
 			return true;
 		}
 		return false;
-
 	}
 
 	public boolean updateTeacherReferenceDetails(Teacher teacherDetails) {
@@ -159,5 +159,10 @@ public class GroupAppService {
 		}
 		return false;
 
+	}
+
+	public List<Group> getAllGroups() {
+		// TODO Auto-generated method stub
+		return groupInterface.findAll();
 	}
 }

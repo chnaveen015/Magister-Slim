@@ -38,8 +38,12 @@ public class OfferingLevelAppService {
 	}
 
 	public OfferingLevel getOfferingLevel(String offeringLevelid) {
-		OfferingLevel group = offeringLevelInterface.findById(offeringLevelid).get();
-		return group;
+		if (offeringLevelInterface.getOfferingLevel(offeringLevelid)!=null) {
+			OfferingLevel offeringLevel = offeringLevelInterface.getOfferingLevel(offeringLevelid);
+			System.out.println(offeringLevel);
+			return offeringLevel;
+		} else
+			return null;
 	}
 
 	public OfferingLevel deleteOfferingLevel(String offeringId, String offeringLevelId) {

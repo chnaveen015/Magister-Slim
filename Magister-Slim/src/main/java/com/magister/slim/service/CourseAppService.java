@@ -38,7 +38,7 @@ public class CourseAppService {
 	}
 
 	public List<Course> getCourses() {
-		List<Course> course = courseInterface.findAll();
+		List<Course> course = courseInterface.getAllCourses(true);
 		return course;
 	}
 

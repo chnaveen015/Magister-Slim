@@ -20,7 +20,6 @@ import com.magister.slim.service.OfferingLevelAppService;
 import com.magister.slim.service.UserAppService;
 
 @RestController
-@RequestMapping("offering/{offeringId}/offering-level")
 public class OfferingLevelController {
 
 	@Autowired
@@ -30,7 +29,7 @@ public class OfferingLevelController {
 	@Autowired
 	UserAppService userAppService;
 
-	@PostMapping(value = "")
+	@PostMapping(value = "offering/{offeringId}/offering-level")
 	public OfferingLevel createOfferingLevel(@PathVariable("offeringId") String offeringId,
 			@RequestBody OfferingLevel offeringLevel) throws ParseException {
 		offeringLevel.setOfferingLevelId(UserAppService.generateNumber());
@@ -45,14 +44,14 @@ public class OfferingLevelController {
 			return null;
 	}
 
-	@DeleteMapping(value = "{offeringLevelId}")
+	@DeleteMapping(value = "offering/{offeringId}/offering-level/{offeringLevelId}")
 	public OfferingLevel deleteOfferingLevel(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId) {
 		OfferingLevel status = offeringLevelAppService.deleteOfferingLevel(offeringId, offeringLevelId);
 		return status;
 	}
 
-	@PutMapping(value = "{offeringLevelId}")
+	@PutMapping(value = "offering/{offeringId}/offering-level/{offeringLevelId}")
 	public OfferingLevel updateOfferingLevel(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId, @RequestBody OfferingLevel offeringLevel) {
 		offeringLevel.setOfferingLevelId(offeringLevelId);
@@ -62,18 +61,24 @@ public class OfferingLevelController {
 		return status;
 	}
 
-	@GetMapping(value = "{offeringLevelId}")
+	@GetMapping(value = "offering/{offeringId}/offering-level/{offeringLevelId}")
 	public OfferingLevel getOfferingLevelDetails(@PathVariable("offeringId") String offeringId,
 			@PathVariable("offeringLevelId") String offeringLevelId) {
 		OfferingLevel offeringLevel = offeringLevelAppService.getOfferingLevelById(offeringId, offeringLevelId);
 		return offeringLevel;
 	}
 
-	@GetMapping()
+	@GetMapping("offering/{offeringId}/offering-level")
 	public OfferingLevel getOfferingLevelByName(@PathVariable("offeringId") String offeringId,
 			@RequestParam("offeringLevelName") String offeringLevelName) {
 		return offeringLevelAppService.getOfferingLevelByName(offeringId, offeringLevelName);
 
+	}
+	@GetMapping("offering-level/{offeringLevelId}")
+	public OfferingLevel getParticularOfferingLevel(@PathVariable("offeringLevelId") String offeringLevelId)
+	{
+		return offeringLevelAppService.getOfferingLevel(offeringLevelId);
+		
 	}
 
 }

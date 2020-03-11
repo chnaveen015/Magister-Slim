@@ -7,6 +7,7 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.magister.slim.entity.Student;
 import com.magister.slim.entity.Teacher;
 import com.magister.slim.entity.User;
 import com.magister.slim.entity.User.role;
@@ -54,9 +55,9 @@ public class UserAppService {
 		return x;
 	}
 
-	public User addUserDetails(User user) {
-
-		return null;
+	public User addUser(Student student) {
+		User user = new User(student.getId(),student.getName(),generatePassword(),role.student,true);
+		return userInterface.save(user);
 	}
 
 	public static String generateNumber() throws ParseException {
@@ -64,13 +65,9 @@ public class UserAppService {
 		return Long.toString(calendar.getTimeInMillis());
 	}
 
-	public boolean addUser(Teacher teacher) {
+	public User addUser(Teacher teacher) {
 		User user = new User(teacher.getTeacherId(), teacher.getName(), generatePassword(), role.teacher, true);
-		if (userInterface.save(user) != null)
-			return true;
-		else
-			return false;
-
+		return userInterface.save(user);
 	}
 
 }

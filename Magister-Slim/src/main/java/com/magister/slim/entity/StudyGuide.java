@@ -33,12 +33,23 @@ public class StudyGuide {
 	
 	public StudyGuide() {
 	}
-
-	public boolean isActive() {
-		return active;
+	public StudyGuide( String studyGuideName, CourseReference courseReference, OfferingReference offeringReference,
+			OfferingLevelReference offeringLevelReference, Date validOnwards, Date validUpto, boolean isDeleted,
+			boolean active) {
+		super();
+		this.studyGuideName = studyGuideName;
+		this.courseReference = courseReference;
+		this.offeringReference = offeringReference;
+		this.offeringLevelReference = offeringLevelReference;
+		this.validOnwards = validOnwards;
+		this.validUpto = validUpto;
+		this.isDeleted = isDeleted;
+		this.active = active;
 	}
-
-	public void setActive(boolean active) {
+	public StudyGuide( String studyGuideName,boolean isDeleted,boolean active) {
+		super();
+		this.studyGuideName = studyGuideName;
+		this.isDeleted = isDeleted;
 		this.active = active;
 	}
 
@@ -144,6 +155,13 @@ public class StudyGuide {
 
 	public void setValidUpto(Date validUpto) {
 		this.validUpto = validUpto;
+	}
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public boolean isDeleted() {

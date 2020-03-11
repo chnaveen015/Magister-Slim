@@ -28,7 +28,7 @@ public class UserController {
 
 	@PostMapping("")
 	public void createUser(@RequestBody() User user) {
-		userAppService.addUserDetails(user);
+		//userAppService.addUserDetails(user);
 	}
 
 	@DeleteMapping("{userId}")
